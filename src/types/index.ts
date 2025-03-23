@@ -5,8 +5,8 @@ export interface NavItem {
 };
 
 export interface NavItemWithChildren extends NavItem {
-    card:NavItem[];
-    menu:NavItem[];
+    card?:NavItemWithChildren[];
+    menu?:NavItemWithChildren[];
 }
 
 export type MainNavItem =NavItemWithChildren;
