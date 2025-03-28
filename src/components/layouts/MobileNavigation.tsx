@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MainNavItem } from "@/types";
+import { Icons } from "../Icons";
 
 
 interface MainNavProps {
@@ -21,28 +22,14 @@ export default function MobileNavigation({ items }: MainNavProps) {
     <div className="lg:hidden ">
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button variant="ghost" size='icon' className="ml-4 size-5">
+          <Icons.Menu />
+          <span className="sr-only">Toggle Menu</span>
+        </Button>
       </SheetTrigger>
-      <SheetContent side="left">
-        <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription>
-        </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-          
-          </div>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
-        </SheetFooter>
+      <SheetContent side="left" className=" pl-1 pr-0 pt-9">
+        
+        
       </SheetContent>
     </Sheet>
     </div>

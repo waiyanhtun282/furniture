@@ -1,5 +1,4 @@
 import React from "react";
-
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -14,23 +13,26 @@ import { Link } from "react-router";
 import { MainNavItem } from "@/types";
 import { Icons } from "../Icons";
 import { siteConfig } from "@/config/site";
+
+// Define the props interface
 interface MainNavProps {
   items?: MainNavItem[];
 }
 
+// MainNavigation component
 export default function MainNavigation({ items }: MainNavProps) {
   return (
-    <div className=" hidden gap-6 lg:flex  ">
-      <Link to="/" className=" items-center flex space-x-2 ">
+    <div className="hidden gap-6 lg:flex">
+      <Link to="/" className="items-center flex space-x-2">
         <Icons.logo className="size-7" aria-hidden="true" />
         <span className="font-bold inline-block">{siteConfig.name}</span>
-        <span className="sr-only ">Home </span>
+        <span className="sr-only">Home</span>
       </Link>
       <NavigationMenu>
         <NavigationMenuList>
           {items?.[0]?.card && (
             <NavigationMenuItem>
-              <NavigationMenuTrigger>{items?.[0]?.title}</NavigationMenuTrigger>
+              <NavigationMenuTrigger>{items[0].title}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
@@ -39,7 +41,7 @@ export default function MainNavigation({ items }: MainNavProps) {
                         className="flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                         to="/"
                       >
-                        <Icons.logo className="size-6 " aria-hidden="true" />
+                        <Icons.logo className="size-6" aria-hidden="true" />
                         <div className="mb-2 mt-4 text-lg font-medium">
                           {siteConfig.name}
                         </div>
@@ -50,35 +52,41 @@ export default function MainNavigation({ items }: MainNavProps) {
                     </NavigationMenuLink>
                   </li>
                   {items[0].card.map((item) => (
-                    <ListItem key={item.title} href={item.href} title={item.title}>
-                     {item.description}
+                    <ListItem
+                      key={item.title}
+                      href={item.href}
+                      title={item.title}
+                    >
+                      {item.description}
                     </ListItem>
                   ))}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-          ) }
-
-          {items?.[0]?.menu && items[0].menu.map((item) =>(
-
-          <NavigationMenuItem key={item.title}>
-            <Link to={String(item.href)}>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-               {item.title}
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          ))}
-
+          )}
+          {items?.[0]?.menu &&
+            items[0].menu.map((item) => (
+              <NavigationMenuItem key={item.title}>
+                <Link to={String(item.href)}>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    {item.title}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            ))}
         </NavigationMenuList>
       </NavigationMenu>
     </div>
   );
 }
 
+// ListItem component with React.forwardRef
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  React.ComponentPropsWithoutRef<"a"> & {
+    title: string;
+    href: string;
+  }
 >(({ className, title, children, href, ...props }, ref) => {
   return (
     <li>
