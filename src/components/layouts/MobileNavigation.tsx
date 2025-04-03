@@ -12,6 +12,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MainNavItem } from "@/types";
 import { Icons } from "../Icons";
+import { Link } from "react-router";
+import { siteConfig } from "@/config/site";
 
 
 interface MainNavProps {
@@ -20,18 +22,26 @@ interface MainNavProps {
 export default function MobileNavigation({ items }: MainNavProps) {
   return (
     <div className="lg:hidden ">
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size='icon' className="ml-4 size-5">
-          <Icons.Menu />
-          <span className="sr-only">Toggle Menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className=" pl-1 pr-0 pt-9">
-        
-        
-      </SheetContent>
-    </Sheet>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon" className="ml-4 size-5">
+            <Icons.Menu />
+            <span className="sr-only">Toggle Menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className=" pl-4 pt-9">
+          <SheetClose asChild>
+            <Link to="/" className=" flex items-center">
+              <Icons.logo className="size-4 mr-2" />
+              <span className="font-bold">{siteConfig.name}</span>
+              <span className="sr-only">Home</span>
+            </Link>
+          </SheetClose>
+          <ScrollArea className=" my-4 h-[calc(100vh-8rem)] pb-8 ">
+
+          </ScrollArea>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
