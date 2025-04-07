@@ -6,6 +6,7 @@ import AboutPage from './pages/About';
 import BlogsPage from './pages/blogs/Blog';
 import BlogsDetailPage from './pages/blogs/BlogsDetail';
 import BlogsRootLayout from './pages/blogs/BlogsRootLayout';
+import ErrorPage from './pages/Error';
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,19 +23,21 @@ export const router = createBrowserRouter([
       {
         path: "blogs",
         element: <BlogsRootLayout />,
-        children :[
+        children: [
           {
-            index:true,
-            element : <BlogsPage />
-
+            index: true,
+            element: <BlogsPage />,
           },
-        {
-        path: ":postId",
-        element: <BlogsDetailPage />,
-        },
-        ]
+          {
+            path: ":postId",
+            element: <BlogsDetailPage />,
+          },
+        ],
       },
-      
+      {
+        path: "*",
+        element: <ErrorPage />,
+      },
     ],
   },
 ]);

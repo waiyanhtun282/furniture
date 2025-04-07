@@ -3,11 +3,11 @@ import { Outlet } from "react-router";
 
 const RootLayout = () => {
   return (
-  <div className=" flex  flex-col min-h-screen">
-    <Header />
-    <Outlet />
-  </div>
-);
+    <div className=" flex min-h-screen flex-col ">
+      <Header />
+      <Outlet />
+    </div>
+  );
 }
 
 export default RootLayout

@@ -1,8 +1,10 @@
 import React from 'react'
+import { useParams } from 'react-router'
 
 function BlogsDetail() {
+  const {postId} =useParams();
   return (
-    <div>BlogsDetail</div>
+    <div>BlogsDetail: {postId}</div>
   )
 }
 
