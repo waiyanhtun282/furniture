@@ -39,106 +39,106 @@ export const siteConfig = {
       ],
     },
   ],
-//   footerNav: [
-//     {
-//       title: "Furniture Types",
-//       items: [
-//         {
-//           title: "Seating",
-//           href: "/types/seating",
-//           external: true,
-//         },
-//         {
-//           title: "Lying",
-//           href: "/types/lying",
-//           external: true,
-//         },
-//         {
-//           title: "Entertainment",
-//           href: "/types/entertainment",
-//           external: true,
-//         },
-//         {
-//           title: "Tables",
-//           href: "/types/tables",
-//           external: true,
-//         },
-//         {
-//           title: "Storage",
-//           href: "/types/storage",
-//           external: true,
-//         },
-//       ],
-//     },
-//     {
-//       title: "Help",
-//       items: [
-//         {
-//           title: "About",
-//           href: "/about",
-//           external: false,
-//         },
-//         {
-//           title: "Contact",
-//           href: "/contact",
-//           external: false,
-//         },
-//         {
-//           title: "Terms",
-//           href: "/terms",
-//           external: false,
-//         },
-//         {
-//           title: "Privacy",
-//           href: "/privacy",
-//           external: false,
-//         },
-//       ],
-//     },
-//     {
-//       title: "Social",
-//       items: [
-//         {
-//           title: "X",
+   footerNav: [
+     {
+       title: "Furniture Types",
+       items: [
+         {
+           title: "Seating",
+           href: "/types/seating",
+           external: true,
+         },
+         {
+           title: "Lying",
+           href: "/types/lying",
+           external: true,
+         },
+         {
+           title: "Entertainment",
+           href: "/types/entertainment",
+           external: true,
+         },
+         {
+           title: "Tables",
+           href: "/types/tables",
+           external: true,
+         },
+         {
+           title: "Storage",
+           href: "/types/storage",
+           external: true,
+         },
+       ],
+     },
+     {
+       title: "Help",
+       items: [
+         {
+           title: "About",
+           href: "/about",
+           external: false,
+         },
+         {
+           title: "Contact",
+           href: "/contact",
+           external: false,
+         },
+         {
+           title: "Terms",
+           href: "/terms",
+           external: false,
+         },
+         {
+           title: "Privacy",
+           href: "/privacy",
+           external: false,
+         },
+       ],
+     },
+     {
+       title: "Social",
+       items: [
+         {
+           title: "X",
          
-//           external: true,
-//         },
-//         {
-//           title: "GitHub",
+           external: true,
+         },
+         {
+           title: "GitHub",
          
-//           external: true,
-//         },
-//         {
-//           title: "Discord",
+           external: true,
+         },
+         {
+           title: "Discord",
           
-//           external: true,
-//         },
-//       ],
-//     },
-//     {
-//       title: "Partner",
-//       items: [
-//         {
-//           title: "Shoppy",
-//           href: "https://shoppy.com",
-//           external: true,
-//         },
-//         {
-//           title: "Poppy",
-//           href: "https://poppy.com",
-//           external: true,
-//         },
-//         {
-//           title: "Talkie",
-//           href: "https://talkie.com",
-//           external: true,
-//         },
-//         {
-//           title: "coffee",
-//           href: "https://coffee.com",
-//           external: true,
-//         },
-//       ],
-//     },
-//   ],
+           external: true,
+         },
+       ],
+     },
+     {
+       title: "Partner",
+       items: [
+         {
+           title: "Shoppy",
+           href: "https:shoppy.com",
+           external: true,
+         },
+         {
+           title: "Poppy",
+           href: "https:poppy.com",
+           external: true,
+         },
+         {
+           title: "Talkie",
+           href: "https:talkie.com",
+           external: true,
+         },
+         {
+           title: "coffee",
+           href: "https:coffee.com",
+           external: true,
+         },
+       ],
+     },
+   ],
 };
