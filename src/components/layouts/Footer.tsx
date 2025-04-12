@@ -1,8 +1,7 @@
-import React from "react";
 import { Link } from "react-router";
 import { Icons } from "../Icons";
 import { siteConfig } from "@/config/site";
-import { isUndefined } from "node:util";
+import  NewsLetterForm  from "@/components/new-letters";
 
 function Footer() {
   return (
@@ -27,7 +26,7 @@ function Footer() {
                         <Link
                           to={item?.href}
                           target={item.external ? "_blank" : undefined}
-                          className="text-sm text-muted-foreground hover:text-foreground"
+                          className="text-sm text-muted-foreground hover:text-foreground8"
                         >
                           {item.title}
                         </Link>
@@ -36,6 +35,10 @@ function Footer() {
                   </ul>
                 </div>
               ))}
+            </section>
+            <section className=" space-y-3">
+              <h4>Subscribe to our newsLetter</h4>
+              <NewsLetterForm />
             </section>
           </section>
         </div>

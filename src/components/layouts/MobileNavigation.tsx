@@ -16,7 +16,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { it } from "node:test";
 
 interface MainNavProps {
   items?: MainNavItem[];
