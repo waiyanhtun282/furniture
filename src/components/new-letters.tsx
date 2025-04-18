@@ -41,7 +41,7 @@ export default function NwesLettersForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid w-full"
+        className="grid w-full pr-8 lg:pr-0"
         autoComplete="off"
       >
         <FormField

@@ -16,11 +16,26 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useEffect, useState } from "react";
 
 interface MainNavProps {
   items?: MainNavItem[];
 }
 export default function MobileNavigation({ items }: MainNavProps) {
+  const [isDesktop,setIsDesktop] =useState(false);
+  const query = "(min-width:1024px)";
+  useEffect(() => {
+    function onChange (event:MediaQueryListEvent) {
+     setIsDesktop(event.matches);
+    }
+   const result =matchMedia(query);
+   result.addEventListener("change",onChange);
+   return () =>result.removeEventListener("change",onChange);
+  },[query]);
+
+  if (isDesktop) {
+  return null;
+  }
   return (
     <div className="lg:hidden ">
       <Sheet>

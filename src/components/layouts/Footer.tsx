@@ -8,7 +8,7 @@ function Footer() {
     <footer className="border-t">
       <div className="ml-4 w-full lg:ml-0">
         <div className="container mx-auto pt-6 pb-8 lg:py-6">
-          <section className="flex flex-col gap-10 lg:flex-row lg:gap-20">
+          <section className="flex flex-col gap-10 lg:justify-between lg:flex-row lg:gap-20">
             <section>
               <Link to="/" className="flex items-center space-x-2">
                 <Icons.logo className="size-6" aria-hidden="true" />
