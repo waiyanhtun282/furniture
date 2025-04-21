@@ -30,7 +30,7 @@ export default function CarouselCard({ products }: ProductsProps) {
       //   onMouseEnter={plugin.current.stop}
       //   onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent className="-ml-1">
+      <CarouselContent className="-ml-1 ">
         {products.map((product) => (
           <CarouselItem key={product.id} className="pl-1 lg:basis-1/3">
             <div className="flex gap-4 p-4 lg:px-4">
@@ -40,11 +40,9 @@ export default function CarouselCard({ products }: ProductsProps) {
                 className="size-28 rounded-md"
               />
               <div className="">
-                <h2 className="text-sm font-bold">{product.name}</h2>
-                <p className="my-2 text-sm text-gray-600">
-                  {product.description.length > 55
-                    ? product.description.substring(0, 55)  + " ....."
-                    : product.description}
+                <h2 className="text-sm font-bold line-clamp-1">{product.name}</h2>
+                <p className="my-2 text-sm text-gray-600 line-clamp-2">
+                  {product.description}
                 </p>
                 <Link
                   to={`products/${product.id}`}

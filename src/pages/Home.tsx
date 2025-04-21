@@ -1,9 +1,25 @@
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router';
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 import Couch from "@/data/images/couch.png";
-import CarouselCard from '@/components/products/CarouselCard';
-import { products } from '@/data/porducts';
-const HomePage = () => {
+import CarouselCard from "@/components/products/CarouselCard";
+import { products } from "@/data/porducts";
+function HomePage  () {
+  const Title = ({
+    title,
+    href,
+    sideText,
+  }: {
+    title: string;
+    href: string;
+    sideText: string;
+  }) => (
+    <div className=" mb-10 mt-28 flex flex-col md:flex-row md:justify-between md:px-0 px-4">
+      <h2 className=" font-bold mb-4 text-2xl md:mb-0">{title}</h2>
+      <Link  className=" font-semibold underline text-muted-foreground" to={href}>{sideText}</Link>
+    </div>
+  );
+
+
   return (
     <div className="container mx-auto mt-16">
       <div className="flex flex-col lg:flex-row lg:justify-between">
@@ -33,9 +49,12 @@ const HomePage = () => {
         </div>
         <img src={Couch} alt="Couch" className="w-full lg:w-3/5" />
       </div>
-      <CarouselCard products={products}/>
+      <div className="lg:px-5">
+        <CarouselCard products={products} />
+      </div>
+      <Title title="Recent Blog" href="/blogs" sideText="View All Posts" />
     </div>
   );
-}
+};
 
 export default HomePage;
