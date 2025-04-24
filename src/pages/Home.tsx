@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
 import { products } from "@/data/porducts";
+import { posts } from "@/data/posts";
+import BlogsCard from "@/components/blogs/BlogsCard";
 function HomePage  () {
   const Title = ({
     title,
@@ -53,6 +55,7 @@ function HomePage  () {
         <CarouselCard products={products} />
       </div>
       <Title title="Recent Blog" href="/blogs" sideText="View All Posts" />
+      <BlogsCard  posts={posts}/>
     </div>
   );
 };
