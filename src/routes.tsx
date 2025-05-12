@@ -6,6 +6,10 @@ import BlogsPage from './pages/blogs/Blog';
 import BlogsDetailPage from './pages/blogs/BlogsDetail';
 import BlogsRootLayout from './pages/blogs/BlogsRootLayout';
 import ErrorPage from './pages/Error';
+import ProductsRootLayout from './pages/products/ProductsRootLayout';
+import ProductsPage from './pages/products/Products';
+import ProductsDetailPage from './pages/products/ProductsDetail';
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +25,20 @@ export const router = createBrowserRouter([
       },
       {
         path: "blogs",
+        element: <ProductsRootLayout />,
+        children: [
+          {
+            index: true,
+            element: <ProductsPage />,
+          },
+          {
+            path: ":postId",
+            element: <ProductsDetailPage />,
+          },
+        ],
+      },
+      {
+        path: "blogs",
         element: <BlogsRootLayout />,
         children: [
           {
@@ -28,7 +46,7 @@ export const router = createBrowserRouter([
             element: <BlogsPage />,
           },
           {
-            path: ":postId",
+            path: ":productsId",
             element: <BlogsDetailPage />,
           },
         ],

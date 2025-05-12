@@ -5,6 +5,8 @@ import CarouselCard from "@/components/products/CarouselCard";
 import { products } from "@/data/porducts";
 import { posts } from "@/data/posts";
 import BlogsCard from "@/components/blogs/BlogsCard";
+import ProductsCard from "@/components/products/ProductsCard";
+
 function HomePage  () {
   const Title = ({
     title,
@@ -23,7 +25,7 @@ function HomePage  () {
 
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto">
       <div className="flex flex-col lg:flex-row lg:justify-between">
         <div className="my-8 text-center lg:mt-20 lg:mb-0 lg:w-2/5 lg:text-left">
           <h1 className="mb-4 text-4xl font-extrabold text-[#3b5d50] lg:mb-8 lg:text-6xl">
@@ -54,8 +56,10 @@ function HomePage  () {
       <div className="lg:px-5">
         <CarouselCard products={products} />
       </div>
+      <Title title="Featured Prodcuts" href="/products" sideText="View All Products" />
+         <ProductsCard products={products}/>
       <Title title="Recent Blog" href="/blogs" sideText="View All Posts" />
-      <BlogsCard  posts={posts}/>
+      <BlogsCard posts={posts} />
     </div>
   );
 };
