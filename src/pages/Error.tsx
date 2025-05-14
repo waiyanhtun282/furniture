@@ -11,7 +11,7 @@ import { Link } from "react-router";
 
 function Error() {
   return (
-    <main className="mx-auto flex flex-1 items-center my-32">
+    <main className="container mx-auto flex flex-1 items-center justify-center my-32">
       <Card className="w-[350px] lg:w-[500px] ">
         <CardHeader className="grid place-items-center gap-2">
           <div className="border-muted-foreground/70 mt-2 mb-4 grid size-20 place-items-center rounded-full border border-dashed  md:size-24">

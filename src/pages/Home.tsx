@@ -7,6 +7,9 @@ import { posts } from "@/data/posts";
 import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";
 
+const sampleposts =posts.slice(0,3);
+const smapleProdcuts=products.slice(0,4)
+
 function HomePage  () {
   const Title = ({
     title,
@@ -56,10 +59,18 @@ function HomePage  () {
       <div className="lg:px-5">
         <CarouselCard products={products} />
       </div>
-      <Title title="Featured Prodcuts" href="/products" sideText="View All Products" />
-         <ProductsCard products={products}/>
+      <Title
+        title="Featured Prodcuts"
+        href="/products"
+        sideText="View All Products"
+      />
+      <div className="grid gird-cols-1 px-4 md:px-0 md:grid-cols-2  lg:grid-cols-4 gap-6">
+        {smapleProdcuts.map((products) => (
+          <ProductsCard product={products} key={products.id} />
+        ))}
+      </div>
       <Title title="Recent Blog" href="/blogs" sideText="View All Posts" />
-      <BlogsCard posts={posts} />
+      <BlogsCard posts={sampleposts} />
     </div>
   );
 };

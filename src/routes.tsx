@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path: "blogs",
+        path: "products",
         element: <ProductsRootLayout />,
         children: [
           {
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
             element: <ProductsPage />,
           },
           {
-            path: ":postId",
+            path: ":productsId",
             element: <ProductsDetailPage />,
           },
         ],
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
             element: <BlogsPage />,
           },
           {
-            path: ":productsId",
+            path: ":postId",
             element: <BlogsDetailPage />,
           },
         ],
