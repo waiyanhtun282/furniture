@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Icons } from "../Icons";
+import { FormatPrice } from "@/lib/utils";
 
 interface ProuctsProps {
   product: Products;
@@ -32,12 +33,12 @@ function ProductsCard({ product }: ProuctsProps) {
         <CardContent className="space-y-1.5 p-4">
           <CardTitle className="line-clamp-1">{product.name}</CardTitle>
           <CardDescription className="line-clamp-1">
-            ${product.price}
-            {
-              product.discount > 0 && (
-              <span className=" ml-2 line-through font-extrabold ">${product.discount}</span>
-            )
-            }
+            {FormatPrice(product.price, )}
+            {product.discount > 0 && (
+              <span className="ml-2 font-extrabold line-through">
+                {FormatPrice(product.discount)}
+              </span>
+            )}
           </CardDescription>
         </CardContent>
       </Link>
@@ -53,8 +54,11 @@ function ProductsCard({ product }: ProuctsProps) {
             Sold Out
           </Button>
         ) : (
-          <Button size={"sm"} className="h-8 w-full rounded-sm bg-[#3b5d50] text-white font-bold">
-            <Icons.plus className="mr-2" />   Add To Cart
+          <Button
+            size={"sm"}
+            className="h-8 w-full rounded-sm bg-[#3b5d50] font-bold text-white"
+          >
+            <Icons.plus className="mr-2" /> Add To Cart
           </Button>
         )}
       </CardFooter>
