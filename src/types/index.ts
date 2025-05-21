@@ -34,3 +34,8 @@ export type Posts = {
   updated_at: string;
   tags:string[];
 };
+
+export type Category={
+  id:string;
+  name:string;
+}
