@@ -5,7 +5,9 @@ import {
   ExclamationTriangleIcon,
   ArrowLeftIcon,
   LayersIcon,
-  PlusIcon
+  PlusIcon,
+  StarIcon,
+  HeartIcon
   
 } from "@radix-ui/react-icons";
 
@@ -34,5 +36,7 @@ export  const Icons = {
   excleamationIcon:ExclamationTriangleIcon,
   arrowLeft:ArrowLeftIcon,
   layer:LayersIcon,
-  plus:PlusIcon
+  plus:PlusIcon,
+  star:StarIcon,
+  heart:HeartIcon
 };
