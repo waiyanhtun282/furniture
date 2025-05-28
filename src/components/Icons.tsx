@@ -6,6 +6,7 @@ import {
   ArrowLeftIcon,
   LayersIcon,
   PlusIcon,
+  MinusIcon,
   StarIcon,
   HeartIcon
   
@@ -38,5 +39,6 @@ export  const Icons = {
   layer:LayersIcon,
   plus:PlusIcon,
   star:StarIcon,
-  heart:HeartIcon
+  heart:HeartIcon,
+  minus:MinusIcon
 };
