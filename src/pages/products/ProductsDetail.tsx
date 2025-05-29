@@ -17,6 +17,12 @@ import { FormatPrice } from "@/lib/utils";
 import Rating from "@/components/products/Rating";
 import AddToFavourite from "@/components/products/AddToFavourite";
 import AddToCardForm from "@/components/products/AddToCardForm";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 function ProductsDetail() {
   const { productsId } = useParams();
@@ -54,17 +60,32 @@ function ProductsDetail() {
             <h2 className="mb-2 line-clamp-1 text-2xl font-bold">
               {product?.name}
             </h2>
-            <p className="text-base text-muted-foreground">
+            <p className="text-muted-foreground text-base">
               {FormatPrice(Number(product?.price))}
             </p>
           </div>
           <Separator className="my-1.5" />
-          <p className="text-base text-muted-foreground">{product?.inventory} in stock</p>
+          <p className="text-muted-foreground text-base">
+            {product?.inventory} in stock
+          </p>
           <div className="flex items-center justify-between">
-            <Rating rating={Number(product?.rating)}/>
-            <AddToFavourite productId={String(product?.id)} rating={Number(product?.rating)}/>
+            <Rating rating={Number(product?.rating)} />
+            <AddToFavourite
+              productId={String(product?.id)}
+              rating={Number(product?.rating)}
+            />
           </div>
-          <AddToCardForm canBuy={product?.status === "active" }/>
+          <AddToCardForm canBuy={product?.status === "active"} />
+          <Separator className="my-5" />
+          <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+            <AccordionItem value="item-1" className="border-none">
+              <AccordionTrigger>Description</AccordionTrigger>
+              <AccordionContent>
+               {product?.description ?? "No description is avaiable for this products"}
+              </AccordionContent>
+            </AccordionItem>
+
+          </Accordion>
         </div>
       </section>
       <section className="space-y-6 overflow-hidden">
