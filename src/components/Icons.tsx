@@ -8,7 +8,10 @@ import {
   PlusIcon,
   MinusIcon,
   StarIcon,
-  HeartIcon
+  HeartIcon,
+  DashboardIcon,
+  GearIcon,
+  ExitIcon
   
 } from "@radix-ui/react-icons";
 
@@ -40,5 +43,8 @@ export  const Icons = {
   plus:PlusIcon,
   star:StarIcon,
   heart:HeartIcon,
-  minus:MinusIcon
+  minus:MinusIcon,
+  dashboard:DashboardIcon,
+  gear:GearIcon,
+  exit:ExitIcon
 };
