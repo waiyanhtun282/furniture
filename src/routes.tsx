@@ -14,6 +14,8 @@ import ErrorPage from "./pages/Error";
 import ProductsRootLayout from "./pages/products/ProductsRootLayout";
 import ProductsPage from "./pages/products/Products";
 import ProductsDetailPage from "./pages/products/ProductsDetail";
+import Login from "./auth/Login";
+import Register from "./auth/Register";
 const Suspensefallback = () => <div>loading....</div>;
 
 export const router = createBrowserRouter([
@@ -75,4 +77,12 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'/login',
+    element:<Login/> 
+  },
+  {
+    path:'/register',
+    element:<Register />
+  }
 ]);
