@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
       {
         path: "blogs",
         element: (
-          <Suspense fallback={Suspensefallback}>
+          <Suspense fallback=fSuspensefallback}>
             <BlogsRootLayout />
           </Suspense>
         ),
@@ -56,7 +56,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={Suspensefallback}>
+              <Suspense fallback=fSuspensefallback}>
                 <BlogsPage />
               </Suspense>
             ),
