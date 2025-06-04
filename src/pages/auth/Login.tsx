@@ -12,12 +12,18 @@ function Login() {
         <Icons.logo className="mr-2 size-6" aria-hidden="true" />
         <span className="">Furniture Shop</span>
       </Link>
-      <main className=" grid min-h-screen grid-cols-1 lg:grid-cols-2">
-        <div className=" grid w-full place-items-center">
-          <LoginForm />
+      <main className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
+        <div className="grid size-full place-items-center">
+          <div className="md:w-96 w-86">
+            <LoginForm />
+          </div>
         </div>
-        <div className=" size-full relative hidden overflow-hidden lg:block">
-          <img src={Banner} alt="furniture Shop" className="absolute inset-0 object-cover" />
+        <div className="relative hidden size-full overflow-hidden lg:block">
+          <img
+            src={Banner}
+            alt="furniture Shop"
+            className="absolute inset-0 object-cover"
+          />
         </div>
       </main>
     </div>
