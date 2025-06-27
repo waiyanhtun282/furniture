@@ -1,12 +1,10 @@
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -14,9 +12,10 @@ import {
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import {cartsItems} from "@/data/carts";
-import { Icons } from "../Icons";
-
+import {cartItems} from "@/data/carts";
+import { Icons } from "@/components/Icons";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import CartItem from "@/components/cart/CartItem";
 export default function CartsSheet() {
     const itemCount =4;
     const amountTotal =190;
@@ -32,7 +31,7 @@ export default function CartsSheet() {
         >
           <Badge
             variant="destructive"
-            className="absolute -top-2 -right-2 size-6 animate-bounce justify-center rounded-full "
+            className="absolute -top-2 -right-2 size-6 animate-bounce justify-center rounded-full"
             aria-label="Open cart"
           >
             {itemCount}
@@ -40,29 +39,35 @@ export default function CartsSheet() {
           <Icons.cart className="size-4" aria-hidden="true" />
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </SheetDescription>
+      <SheetContent className="w-full md:max-w-lg">
+        <SheetHeader className="">
+          <SheetTitle className="mx-auto">Cart - {itemCount}</SheetTitle>
         </SheetHeader>
-        <div className="grid flex-1 auto-rows-min gap-6 px-4">
-          <div className="grid gap-3">
-            <Label htmlFor="sheet-demo-name">Name</Label>
-            <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
+        <Separator className="my-2" />
+        {cartItems.length > 0 ? (
+          <ScrollArea className="my-4 h-[80vh] px-3 pb-8">
+            {cartItems.map((cart) => (
+              <CartItem />
+            ))}
+            <SheetFooter>
+              <SheetClose asChild>
+                <Button type="submit" asChild>
+                  <Link to="/checkout" aria-label="Checkout">
+                    Checkout to Checkout
+                  </Link>
+                </Button>
+              </SheetClose>
+            </SheetFooter>
+          </ScrollArea>
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center space-y-1">
+            <Icons.cart className="text-muted-foreground mb-4 size-16" />
+
+            <p className="text-muted-foreground text-xl font-medium">
+              Your cart is empty
+            </p>
           </div>
-          <div className="grid gap-3">
-            <Label htmlFor="sheet-demo-username">Username</Label>
-            <Input id="sheet-demo-username" defaultValue="@peduarte" />
-          </div>
-        </div>
-        <SheetFooter>
-          <Button type="submit">Save changes</Button>
-          <SheetClose asChild>
-            <Button variant="outline">Close</Button>
-          </SheetClose>
-        </SheetFooter>
+        )}
       </SheetContent>
     </Sheet>
   );
