@@ -16,7 +16,8 @@ import ProductsPage from "./pages/products/Products";
 import ProductsDetailPage from "./pages/products/ProductsDetail";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-const Suspensefallback = () => <div>loading....</div>;
+import SuspenseFallback from "./components/SuspenseFallback";
+
 
 export const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ export const router = createBrowserRouter([
       {
         path: "blogs",
         element: (
-          <Suspense fallback={Suspensefallback}>
+          <Suspense fallback={<SuspenseFallback />}>
             <BlogsRootLayout />
           </Suspense>
         ),
@@ -56,7 +57,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={Suspensefallback}>
+              <Suspense fallback={<SuspenseFallback />}>
                 <BlogsPage />
               </Suspense>
             ),
@@ -64,7 +65,7 @@ export const router = createBrowserRouter([
           {
             path: ":postId",
             element: (
-              <Suspense fallback={Suspensefallback}>
+              <Suspense fallback={<SuspenseFallback />}>
                 <BlogsDetailPage />
               </Suspense>
             ),

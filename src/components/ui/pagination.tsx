@@ -4,9 +4,10 @@ import {
   ChevronRightIcon,
   MoreHorizontalIcon,
 } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Link } from "react-router"
+
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -49,20 +50,22 @@ function PaginationLink({
   ...props
 }: PaginationLinkProps) {
   return (
-    <a
-      aria-current={isActive ? "page" : undefined}
-      data-slot="pagination-link"
-      data-active={isActive}
-      className={cn(
-        buttonVariants({
-          variant: isActive ? "outline" : "ghost",
-          size,
-        }),
-        className
-      )}
-      {...props}
-    />
-  )
+    
+      <a
+        aria-current={isActive ? "page" : undefined}
+        data-slot="pagination-link"
+        data-active={isActive}
+        className={cn(
+          buttonVariants({
+            variant: isActive ? "outline" : "ghost",
+            size,
+          }),
+          className,
+        )}
+        {...props}
+      />
+    
+  );
 }
 
 function PaginationPrevious({
