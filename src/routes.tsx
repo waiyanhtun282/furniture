@@ -16,6 +16,7 @@ import ProductsDetailPage from "./pages/products/ProductsDetail";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { homeLoader } from "./router/loader";
+import { loginAction, logoutAction } from "./router/action";
 // import SuspenseFallback from "./components/SuspenseFallback";
 
 
@@ -150,7 +151,8 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    Component: Login, 
+    Component: Login,
+    action:loginAction 
     // element: <Login />,
   },
   {
@@ -158,4 +160,8 @@ export const router = createBrowserRouter([
     Component: Register,
     // element: <Register />,
   },
+  {
+    path: "/logout",
+    action:logoutAction
+  }
 ]);

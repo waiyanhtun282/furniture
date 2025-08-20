@@ -1,6 +1,6 @@
 import { User } from '@/types';
 import { Button } from '../ui/button';
-import { Link } from 'react-router';
+import { Link ,Form} from 'react-router';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -71,11 +71,17 @@ function AutoDropDown({user}:UserProps) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link to='/login'>
+          {/* <Link to='/login'>
           <Icons.exit className=' size-4 mr-2' aria-hidden='true'/>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-          </Link>
+          </Link> */}
+          <Form action="/logout" method="POST">   
+            <button type="submit" className="w-full">
+              logout
+              </button>
+         </Form>
+
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import { Link } from "react-router";
+import { Link ,useSubmit} from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,6 +41,7 @@ export default function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+    const submit = useSubmit();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -50,6 +51,7 @@ export default function LoginForm({
   });
   function onSubmit(values: z.infer<typeof FormSchema>) {
     // console.log(values);
+    submit(values, {method: "post", action: "/login"});
     // setLoading(true);
     // call api
   }
