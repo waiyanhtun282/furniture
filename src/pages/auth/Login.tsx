@@ -18,11 +18,11 @@ function Login() {
             <LoginForm />
           </div>
         </div>
-        <div className="relative hidden size-full overflow-hidden lg:block">
+        <div className="relative hidden   lg:block">
           <img
-            src={Banner}
+            src={Banner} 
             alt="furniture Shop"
-            className="absolute inset-0 object-cover"
+            className="absolute  w-full h-full inset-0 object-cover"
           />
         </div>
       </main>

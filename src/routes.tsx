@@ -1,14 +1,13 @@
-import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router";
 import RootLayout from "./pages/RootLayout";
 import HomePage from "./pages/Home";
 import AboutPage from "./pages/About";
-// import BlogsPage from './pages/blogs/Blog';
-// import BlogsDetailPage from './pages/blogs/BlogsDetail';
-// import BlogsRootLayout from './pages/blogs/BlogsRootLayout';
-const BlogsRootLayout = lazy(() => import("@/pages/blogs/BlogsRootLayout"));
-const BlogsPage = lazy(() => import("@/pages/blogs/Blog"));
-const BlogsDetailPage = lazy(() => import("@/pages/blogs/BlogsDetail"));
+import BlogsPage from './pages/blogs/Blog';
+import BlogsDetailPage from './pages/blogs/BlogsDetail';
+import BlogsRootLayout from './pages/blogs/BlogsRootLayout';
+// const BlogsRootLayout = lazy(() => import("@/pages/blogs/BlogsRootLayout"));
+// const BlogsPage = lazy(() => import("@/pages/blogs/Blog"));
+// const BlogsDetailPage = lazy(() => import("@/pages/blogs/BlogsDetail"));
 
 import ErrorPage from "./pages/Error";
 import ProductsRootLayout from "./pages/products/ProductsRootLayout";
@@ -16,74 +15,147 @@ import ProductsPage from "./pages/products/Products";
 import ProductsDetailPage from "./pages/products/ProductsDetail";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import SuspenseFallback from "./components/SuspenseFallback";
+import { homeLoader } from "./router/loader";
+// import SuspenseFallback from "./components/SuspenseFallback";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    Component: RootLayout,
     children: [
       {
         index: true,
-        element: <HomePage />,
+        Component: HomePage,
+        loader: homeLoader
       },
       {
         path: "about",
-        element: <AboutPage />,
+        Component: AboutPage,
       },
       {
         path: "products",
-        element: <ProductsRootLayout />,
+        Component: ProductsRootLayout,
+        // <Suspense fallback={<div className="text-center">loading...</div>}>
+        //   <ProductsRootLayout />
+        // </Suspense>
+        lazy: async () => {
+          // load component and loader in parallel before rendering
+          const [ProductsRootLayout] = await Promise.all([
+            import("@/pages/products/ProductsRootLayout"),
+          ]);
+          return { ProductsRootLayout };
+        },
+
         children: [
           {
             index: true,
-            element: <ProductsPage />,
+            Component: ProductsPage,
+            //   Component: (
+            //     <Suspense fallback={<div className="text-center">loading...</div>}>
+            //   <ProductsPage />
+            //   </Suspense>
+            // ),
+            lazy: async () => {
+              // load component and loader in parallel before rendering
+              const [ProductsPage] = await Promise.all([
+                import("@/pages/products/Products"),
+              ]);
+              return { ProductsPage };
+            },
           },
           {
             path: ":productsId",
-            element: <ProductsDetailPage />,
+            Component: ProductsDetailPage,
+
+            // element: (
+            //   <Suspense
+            //     fallback={<div className="text-center">loading...</div>}
+            //   >
+            //     <ProductsDetailPage />
+            //   </Suspense>
+            // ),
+            lazy: async () => {
+              // load component and loader in parallel before rendering
+              const [ProductsDetailPage] = await Promise.all([
+                import("@/pages/products/ProductsDetail"),
+              ]);
+              return { ProductsDetailPage };
+            },
           },
         ],
       },
       {
         path: "blogs",
-        element: (
-          <Suspense fallback={<SuspenseFallback />}>
-            <BlogsRootLayout />
-          </Suspense>
-        ),
+        Component: BlogsRootLayout,
+        lazy: async () => {
+          // load component and loader in parallel before rendering
+          const [BlogsRootLayout] = await Promise.all([
+            import("@/pages/blogs/BlogsRootLayout"),
+          ]);
+          return { BlogsRootLayout };
+        },
+        // element: (
+        //   <Suspense fallback={<div className="text-center">loading...</div>}>
+        //     <BlogsRootLayout />
+        //   </Suspense>
+        // ),
         children: [
           {
             index: true,
-            element: (
-              <Suspense fallback={<SuspenseFallback />}>
-                <BlogsPage />
-              </Suspense>
-            ),
+            Component: BlogsPage,
+
+            lazy: async () => {
+              // load component and loader in parallel before rendering
+              const [BlogsPage] = await Promise.all([
+                import("@/pages/blogs/Blog"),
+              ]);
+              return { BlogsPage };
+            },
+
+            // element: (
+            //   <Suspense
+            //     fallback={<div className="text-center">loading...</div>}
+            //   >
+            //     <BlogsPage />
+            //   </Suspense>
+            // ),
           },
           {
             path: ":postId",
-            element: (
-              <Suspense fallback={<SuspenseFallback />}>
-                <BlogsDetailPage />
-              </Suspense>
-            ),
+            Component: BlogsDetailPage,
+            lazy: async () => {
+              // load component and loader in parallel before rendering
+              const [BlogsDetailPage] = await Promise.all([
+                import("@/pages/blogs/BlogsDetail"),
+              ]);
+              return { BlogsDetailPage };
+            },
+            // element: (
+            //   <Suspense
+            //     fallback={<div className="text-center">loading...</div>}
+            //   >
+            //     <BlogsDetailPage />
+            //   </Suspense>
+            // ),
           },
         ],
       },
       {
         path: "*",
-        element: <ErrorPage />,
+        Component: ErrorPage,
+        // element: <ErrorPage />,
       },
     ],
   },
   {
-    path:'/login',
-    element:<Login/> 
+    path: "/login",
+    Component: Login, 
+    // element: <Login />,
   },
   {
-    path:'/register',
-    element:<Register />
-  }
+    path: "/register",
+    Component: Register,
+    // element: <Register />,
+  },
 ]);
