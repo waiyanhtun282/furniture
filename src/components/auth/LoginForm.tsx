@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import { Link ,useSubmit} from "react-router";
+import { Link ,useActionData,useNavigate,useSubmit} from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { PasswordInput } from "./Password-Input";
+import { p } from "node_modules/react-router/dist/development/context-DohQKLID.d.mts";
 
 const FormSchema = z.object({
   phone: z
@@ -42,6 +43,14 @@ export default function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
     const submit = useSubmit();
+    const navigation =useNavigate();
+    const actionData  =useActionData() as {
+      error?:string;
+      message?: string;
+    };
+     
+    const isSubmitting = navigation.state === "submitting";
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -117,10 +126,12 @@ export default function LoginForm({
                   </FormItem>
                 )}
               />
-
+              {actionData && (
+              <p className=" text-red-500">{actionData.message}</p>
+              )}
             <div className="grid gap-4">
-              <Button type="submit" className="w-full">
-                <Link to="/login">Sign in</Link>
+              <Button type="submit" className="w-full mt-2">
+                {isSubmitting ? "Submitting ..." : "Sign In"}
               </Button>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-background text-muted-foreground relative z-10 px-2">
