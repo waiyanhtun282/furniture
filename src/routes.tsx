@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter,redirect } from "react-router";
 import RootLayout from "./pages/RootLayout";
 import HomePage from "./pages/Home";
 import AboutPage from "./pages/About";
@@ -15,7 +15,7 @@ import ProductsPage from "./pages/products/Products";
 import ProductsDetailPage from "./pages/products/ProductsDetail";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import { homeLoader } from "./router/loader";
+import { homeLoader, loginLoader } from "./router/loader";
 import { loginAction, logoutAction } from "./router/action";
 // import SuspenseFallback from "./components/SuspenseFallback";
 
@@ -152,16 +152,19 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
+    loader:loginLoader,
     action:loginAction 
     // element: <Login />,
   },
   {
     path: "/register",
     Component: Register,
+
     // element: <Register />,
   },
   {
     path: "/logout",
-    action:logoutAction
+    action:logoutAction,
+    loader: () => redirect("/"),
   }
 ]);

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import { Link ,useActionData,useNavigate,useSubmit} from "react-router";
+import { Link, useActionData, useNavigation, useSubmit } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,7 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { PasswordInput } from "./Password-Input";
-import { p } from "node_modules/react-router/dist/development/context-DohQKLID.d.mts";
 
 const FormSchema = z.object({
   phone: z
@@ -43,9 +42,9 @@ export default function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
     const submit = useSubmit();
-    const navigation =useNavigate();
-    const actionData  =useActionData() as {
-      error?:string;
+    const navigation = useNavigation();
+    const actionData  = useActionData() as {
+      error?: string;
       message?: string;
     };
      
@@ -126,8 +125,8 @@ export default function LoginForm({
                   </FormItem>
                 )}
               />
-              {actionData && (
-              <p className=" text-red-500">{actionData.message}</p>
+              { actionData && (
+              <p className="text-xs text-red-500">{actionData?.message}</p>
               )}
             <div className="grid gap-4">
               <Button type="submit" className="w-full mt-2">
