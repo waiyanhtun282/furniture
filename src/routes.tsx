@@ -1,22 +1,24 @@
 import { createBrowserRouter,redirect } from "react-router";
-import RootLayout from "./pages/RootLayout";
-import HomePage from "./pages/Home";
-import AboutPage from "./pages/About";
-import BlogsPage from './pages/blogs/Blog';
-import BlogsDetailPage from './pages/blogs/BlogsDetail';
-import BlogsRootLayout from './pages/blogs/BlogsRootLayout';
+import RootLayout from "@/pages/RootLayout";
+import HomePage from "@/pages/Home";
+import AboutPage from "@/pages/About";
+import BlogsPage from '@/pages/blogs/Blog';
+import BlogsDetailPage from '@/pages/blogs/BlogsDetail';
+import BlogsRootLayout from '@/pages/blogs/BlogsRootLayout';
 // const BlogsRootLayout = lazy(() => import("@/pages/blogs/BlogsRootLayout"));
 // const BlogsPage = lazy(() => import("@/pages/blogs/Blog"));
 // const BlogsDetailPage = lazy(() => import("@/pages/blogs/BlogsDetail"));
 
-import ErrorPage from "./pages/Error";
-import ProductsRootLayout from "./pages/products/ProductsRootLayout";
-import ProductsPage from "./pages/products/Products";
-import ProductsDetailPage from "./pages/products/ProductsDetail";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import { homeLoader, loginLoader } from "./router/loader";
-import { loginAction, logoutAction } from "./router/action";
+import ErrorPage from "@/pages/Error";
+import ProductsRootLayout from "@/pages/products/ProductsRootLayout";
+import ProductsPage from "@/pages/products/Products";
+import ProductsDetailPage from "@/pages/products/ProductsDetail";
+import Login from "@/pages/auth/Login";
+import AuthRootLayout from "@/pages/auth/AuthRootLayout";
+import SingUpPage from "@/pages/auth/SingUp";
+import { homeLoader, loginLoader } from "@/router/loader";
+import { loginAction, logoutAction } from "@/router/action";
+import OtpPage from "@/pages/auth/Otp";
 // import SuspenseFallback from "./components/SuspenseFallback";
 
 
@@ -158,7 +160,17 @@ export const router = createBrowserRouter([
   },
   {
     path: "/register",
-    Component: Register,
+    Component: AuthRootLayout,
+    children:[
+      {
+        index:true,
+        Component: SingUpPage,
+      },
+      {
+      path:"otp",
+      Component:OtpPage
+      }
+    ],
 
     // element: <Register />,
   },
