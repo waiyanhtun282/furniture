@@ -72,7 +72,7 @@ export function SignUpForm({
             <h1 className="text-xl font-bold">Welcome to Furniture Shop</h1>
             <div className="text-center text-sm">
              ALready has an account
-              <Link to="#" className="underline underline-offset-4">
+              <Link to="/login" className="underline underline-offset-4">
                Sign in
               </Link>
             </div>

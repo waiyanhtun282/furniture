@@ -1,3 +1,8 @@
+import { Link, useActionData, useNavigation, useSubmit } from "react-router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,11 +13,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-
-import { Link, useActionData, useNavigation, useSubmit } from "react-router";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import {
   Form,
@@ -41,14 +41,14 @@ export default function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-    const submit = useSubmit();
-    const navigation = useNavigation();
-    const actionData  = useActionData() as {
-      error?: string;
-      message?: string;
-    };
-     
-    const isSubmitting = navigation.state === "submitting";
+  const submit = useSubmit();
+  const navigation = useNavigation();
+  const actionData = useActionData() as {
+    error?: string;
+    message?: string;
+  };
+
+  const isSubmitting = navigation.state === "submitting";
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -59,7 +59,7 @@ export default function LoginForm({
   });
   function onSubmit(values: z.infer<typeof FormSchema>) {
     // console.log(values);
-    submit(values, {method: "post", action: "/login"});
+    submit(values, { method: "post", action: "/login" });
     // setLoading(true);
     // call api
   }
@@ -114,7 +114,7 @@ export default function LoginForm({
                     </div>
                     <FormControl>
                       <PasswordInput
-                      // placeholder="********"  
+                        // placeholder="********"
                         // type="password"
                         required
                         inputMode="numeric"
@@ -125,33 +125,32 @@ export default function LoginForm({
                   </FormItem>
                 )}
               />
-              { actionData && (
-              <p className="text-xs text-red-500">{actionData?.message}</p>
+              {actionData && (
+                <p className="text-xs text-red-500">{actionData?.message}</p>
               )}
-            <div className="grid gap-4">
-              <Button type="submit" className="w-full mt-2">
-                {isSubmitting ? "Submitting ..." : "Sign In"}
-              </Button>
-              <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                <span className="bg-background text-muted-foreground relative z-10 px-2">
-                  Or continue with
-                </span>
-              </div>
+              <div className="grid gap-4">
+                <Button type="submit" className="mt-2 w-full">
+                  {isSubmitting ? "Submitting ..." : "Sign In"}
+                </Button>
+                <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+                  <span className="bg-background text-muted-foreground relative z-10 px-2">
+                    Or continue with
+                  </span>
+                </div>
 
-              <Button variant="outline" className="w-full">
-                Sign in with Google
-              </Button>
+                <Button variant="outline" className="w-full">
+                  Sign in with Google
+                </Button>
               </div>
             </form>
           </Form>
-          
+
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <Link to="/register" className="underline underline-offset-4">
               Sign up
             </Link>
           </div>
-          
         </CardContent>
       </Card>
     </div>

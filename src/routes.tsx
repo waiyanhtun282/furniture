@@ -17,7 +17,7 @@ import Login from "@/pages/auth/Login";
 import AuthRootLayout from "@/pages/auth/AuthRootLayout";
 import SingUpPage from "@/pages/auth/SingUp";
 import { homeLoader, loginLoader } from "@/router/loader";
-import { loginAction, logoutAction } from "@/router/action";
+import { loginAction, logoutAction, registerAction } from "@/router/action";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
 // import SuspenseFallback from "./components/SuspenseFallback";
@@ -166,6 +166,8 @@ export const router = createBrowserRouter([
       {
         index:true,
         Component: SingUpPage,
+        loader:loginLoader,
+        action:registerAction
       },
       {
       path:"otp",
