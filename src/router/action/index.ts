@@ -54,6 +54,10 @@ export const registerAction = async({request}:ActionFunctionArgs) =>{
     }
        return redirect('/register/otp');
 
+
+    //    client state managment
+    // memory -context,redux ,zustand
+
     } catch (error) {
         if(error instanceof AxiosError) {
             return {
