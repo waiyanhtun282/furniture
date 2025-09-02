@@ -16,7 +16,7 @@ import ProductsDetailPage from "@/pages/products/ProductsDetail";
 import Login from "@/pages/auth/Login";
 import AuthRootLayout from "@/pages/auth/AuthRootLayout";
 import SingUpPage from "@/pages/auth/SingUp";
-import { homeLoader, loginLoader } from "@/router/loader";
+import { homeLoader, loginLoader, otpLoader } from "@/router/loader";
 import { loginAction, logoutAction, registerAction } from "@/router/action";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
@@ -171,6 +171,7 @@ export const router = createBrowserRouter([
       },
       {
       path:"otp",
+      loader:otpLoader,
       Component:OtpPage
       },
       {

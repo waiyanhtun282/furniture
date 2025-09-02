@@ -67,4 +67,34 @@ export const registerAction = async({request}:ActionFunctionArgs) =>{
             };
         }else throw error;
     }
+};
+
+
+export const otpAction = async({request}:ActionFunctionArgs) =>{
+    const authStore = useAuthStore.getState();
+    const formData = await request.formData();
+    const credentials = {
+        phone: authStore.phone,
+        otp: formData.get('otp')
+    };
+
+     try {
+       const response = await authApi.post("verify-otp", credentials);
+       if (response.status !== 200) {
+         return { error: response.data || "Verify OTP failed. !" };
+       }
+
+       //    client state managment
+       // memory -context,redux ,zustand
+       authStore.setAuth(response.data.phone, response.data.token, Status.conifrm);
+
+       return redirect("/register/confirm-password");
+     } catch (error) {
+       if (error instanceof AxiosError) {
+         return {
+           error:
+             error.response?.data || "Verify OTP failed. Please try again.",
+         };
+       } else throw error;
+     }
 }
