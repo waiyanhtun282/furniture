@@ -75,7 +75,8 @@ export const otpAction = async({request}:ActionFunctionArgs) =>{
     const formData = await request.formData();
     const credentials = {
         phone: authStore.phone,
-        otp: formData.get('otp')
+        otp: formData.get('otp'),
+        token:authStore.token
     };
 
      try {
@@ -94,6 +95,36 @@ export const otpAction = async({request}:ActionFunctionArgs) =>{
          return {
            error:
              error.response?.data || "Verify OTP failed. Please try again.",
+         };
+       } else throw error;
+     }
+}
+
+export const confirmPasswordAction = async({request}:ActionFunctionArgs) =>{
+    const authStore = useAuthStore.getState();
+    const formData = await request.formData();
+    const credentials = {
+        phone: authStore.phone,
+        password: formData.get('password'),
+        token:authStore.token
+    };
+
+     try {
+       const response = await authApi.post("confirm-password", credentials);
+       if (response.status !== 201) {
+         return { error: response.data || "Registeration  failed. !" };
+       }
+
+       //    client state managment
+       // memory -context,redux ,zustand
+       authStore.clearAuth();
+
+       return redirect("/");
+     } catch (error) {
+       if (error instanceof AxiosError) {
+         return {
+           error:
+             error.response?.data || "Registeration failed. Please try again.",
          };
        } else throw error;
      }

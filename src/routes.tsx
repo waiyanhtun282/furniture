@@ -16,8 +16,8 @@ import ProductsDetailPage from "@/pages/products/ProductsDetail";
 import Login from "@/pages/auth/Login";
 import AuthRootLayout from "@/pages/auth/AuthRootLayout";
 import SingUpPage from "@/pages/auth/SingUp";
-import { homeLoader, loginLoader, otpLoader } from "@/router/loader";
-import { loginAction, logoutAction, registerAction } from "@/router/action";
+import { confirmPasswordLoader, homeLoader, loginLoader, otpLoader } from "@/router/loader";
+import { confirmPasswordAction, loginAction, logoutAction, otpAction, registerAction } from "@/router/action";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
 // import SuspenseFallback from "./components/SuspenseFallback";
@@ -171,12 +171,16 @@ export const router = createBrowserRouter([
       },
       {
       path:"otp",
+      Component:OtpPage,
       loader:otpLoader,
-      Component:OtpPage
+      action:otpAction
       },
       {
         path:"confirm-password",
-        Component:ConfirmPasswordPage
+        Component:ConfirmPasswordPage,
+        loader:confirmPasswordLoader,
+        action:confirmPasswordAction
+
       }
     ],
 

@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { PasswordInput } from "./Password-Input";
+import { useState } from "react";
 const FormSchema = z.object({
   password: z
     .string()
@@ -35,6 +36,7 @@ export function ConfirmPasswordForm({
   ...props
 }: React.ComponentProps<"div">) {
 
+const [clientError,setClientError] = useState <string | null > (null);
 
   const submit = useSubmit();
       const navigation = useNavigation();
@@ -54,6 +56,11 @@ export function ConfirmPasswordForm({
     });
     function onSubmit(values: z.infer<typeof FormSchema>) {
       // console.log(values);
+      if(values.password !== values.confirmPassword){
+        setClientError("Passwords do not match");
+        return;
+      };
+      setClientError(null);
       submit(values, { method: "post", action: "/register/confirm-password" });
       // setLoading(true);
       // call api
@@ -90,7 +97,7 @@ export function ConfirmPasswordForm({
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <PasswordInput  
+                        <PasswordInput
                           // placeholder="********"
                           // type="password"
                           required
@@ -109,7 +116,6 @@ export function ConfirmPasswordForm({
                     <FormItem>
                       <div className="flex items-center">
                         <FormLabel>ConfirmPassword</FormLabel>
-                        
                       </div>
                       <FormControl>
                         <PasswordInput
@@ -125,20 +131,24 @@ export function ConfirmPasswordForm({
                   )}
                 />
                 {actionData && (
-                  <p className="text-xs text-red-500">{actionData?.message}</p>
+                  <div className="flex gap-2">
+                    <p className="text-xs text-red-500">
+                      {actionData?.message}
+                    </p>
+                    <Link to="/register">Go back to register</Link>
+                  </div>
+                )}
+                {clientError && (
+                  <p className="text-xs text-red-500">{clientError}</p>
                 )}
                 <div className="grid gap-4">
                   <Button type="submit" className="mt-4 w-full">
                     {isSubmitting ? "Submitting ..." : "Confirm"}
                   </Button>
-                  
-
-                  
                 </div>
               </form>
             </Form>
           </div>
-          
         </div>
       </div>
     </div>

@@ -57,7 +57,7 @@ export function SignUpForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center gap-2">
             <Link
@@ -147,7 +147,7 @@ export function SignUpForm({
             </Button>
           </div>
         </div>
-      </form>
+      
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
         By clicking continue, you agree to our <Link to="#">Terms of Service</Link>{" "}
         and <Link to="#">Privacy Policy</Link>.
