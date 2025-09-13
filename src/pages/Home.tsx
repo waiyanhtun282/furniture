@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router";
+import { Link,useLoaderData  } from "react-router";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
 import { products } from "@/data/porducts";
@@ -11,6 +11,7 @@ const sampleposts =posts.slice(0,3);
 const smapleProdcuts=products.slice(0,4)
 
 function HomePage  () {
+  const {productsData,postsData} =useLoaderData();
   const Title = ({
     title,
     href,
@@ -57,7 +58,7 @@ function HomePage  () {
         <img src={Couch} alt="Couch" className="w-full lg:w-3/5" />
       </div>
       <div className="lg:px-5">
-        <CarouselCard products={products} />
+        <CarouselCard products={productsData.products} />
       </div>
       <Title
         title="Featured Prodcuts"
