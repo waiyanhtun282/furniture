@@ -14,6 +14,9 @@ import { Link } from "react-router";
 interface ProductsProps {
   products: Products[];
 }
+
+const imageUrl =import.meta.env.VITE_IMAGE_URL;
+
 export default function CarouselCard({ products }: ProductsProps) {
   //  const plugin = React.useRef(
   //    Autoplay({ delay: 2000, stopOnInteraction: true }),
@@ -35,8 +38,10 @@ export default function CarouselCard({ products }: ProductsProps) {
           <CarouselItem key={product.id} className="pl-1 lg:basis-1/3">
             <div className="flex gap-4 p-4 lg:px-4">
               <img
-                src={product.images[0]}
+                src={imageUrl + product.images[0].path}
                 alt={product.name}
+                loading="lazy"
+                decoding="async"
                 className="size-28 rounded-md"
               />
               <div className="">
