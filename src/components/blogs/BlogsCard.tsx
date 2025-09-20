@@ -4,20 +4,24 @@ import { Link } from "react-router";
 interface PostProps {
   posts: Posts[];
 }
+const imageUrl = import.meta.env.VITE_IMAGE_URL;
+
 function BlogsCard({ posts }: PostProps) {
   return (
     <div className="my-8 grid grid-cols-1 gap-8 px-4 md:grid-cols-2 md:px-0 lg:grid-cols-3">
-      {posts.map((post) => (
+      {posts.slice(0,4).map((post) => (
         <Link to={`/blogs/${post.id}`} key={post.id} className="">
           <img
-            src={post.image}
+            src={imageUrl + post.image}
             alt={post.title}
-            className="rounded-semiboldmd mb-4 w-full"
+            loading="lazy"
+            decoding="async"
+            className="rounded-semiboldmd mb-4 w-full object-contain"
           />
           <h3 className="ml-4 line-clamp-1 font-semibold">{post.title}</h3>
           <div className="mt-2 ml-4 text-sm">
-            <span className="font-semibold">{post.author}</span>
-            <span className="font-semibold">{post.updated_at}</span>
+            <span className="font-semibold">{post.author.fullName}</span>
+            <span className="font-semibold">{post.updatedAt}</span>
           </div>
         </Link>
       ))}

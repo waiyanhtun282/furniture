@@ -2,13 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Link,useLoaderData  } from "react-router";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
-import { products } from "@/data/porducts";
+
 import { posts } from "@/data/posts";
 import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";
+import { Products } from "@/types";
 
-const sampleposts =posts.slice(0,3);
-const smapleProdcuts=products.slice(0,4)
 
 function HomePage  () {
   const {productsData,postsData} =useLoaderData();
@@ -66,12 +65,12 @@ function HomePage  () {
         sideText="View All Products"
       />
       <div className="grid gird-cols-1 px-4 md:px-0 md:grid-cols-2  lg:grid-cols-4 gap-6">
-        {smapleProdcuts.map((products) => (
+        {productsData.products.slice(0,4).map((products :Products) => (
           <ProductsCard product={products} key={products.id} />
         ))}
       </div>
       <Title title="Recent Blog" href="/blogs" sideText="View All Posts" />
-      <BlogsCard posts={sampleposts} />
+      <BlogsCard posts={postsData.posts} />
     </div>
   );
 };
