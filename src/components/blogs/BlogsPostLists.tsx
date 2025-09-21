@@ -3,7 +3,7 @@ import { Link } from "react-router";
 interface PostProps {
   posts: Posts[];
 }
- const  imageUrl = import.meta.env.VITE_IMAGE_URL;
+//  const  imageUrl = import.meta.env.VITE_IMAGE_URL;
 
 function BlogsPostLists({ posts }: PostProps) {
   return (
@@ -11,7 +11,7 @@ function BlogsPostLists({ posts }: PostProps) {
       {posts.map((post) => (
         <Link to={`/blogs/${post.id}`} key={post.id} className="">
           <img
-            src={imageUrl + post.image}
+            src={  post.image}
             alt={post.title}
             className="mb-4 w-full rounded-md"
           />
@@ -20,7 +20,7 @@ function BlogsPostLists({ posts }: PostProps) {
             {post.content}
           </h3>
           <div className="text-sm">
-            by <span className="font-[600]">{post.author.fullName}</span>
+            by <span className="font-[600]">{post.title}</span>
             <span className="font-[600]">{post.updatedAt}</span>
           </div>
         </Link>

@@ -3,14 +3,14 @@ import { Link,useLoaderData  } from "react-router";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
 
-import { posts } from "@/data/posts";
+
 import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";
 import { Products } from "@/types";
 
 
 function HomePage  () {
-  const {productsData,postsData} =useLoaderData();
+  const { productsData, postsData } =useLoaderData();
   const Title = ({
     title,
     href,

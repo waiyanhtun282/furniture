@@ -42,3 +42,7 @@ export const confirmPasswordLoader = async () => {
   }
   return null;
 };
+
+//1. login success -->loader(fetching data) -->Home screen
+//2 login success -->Home screen -->useQusery (cache after fetching data)
+//3. login success -->loader (cache after fetching data) --.Home screen

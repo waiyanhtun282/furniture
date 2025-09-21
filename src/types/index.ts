@@ -33,13 +33,14 @@ name:string;
 }
 export type Posts = {
   id: number;
-  author: {
-    fullName:string;
-  };
+  
   title: string;
   content: string;
   image: string;
   body: string;
+  author: {
+    fullName:string;
+  };
   updatedAt: string;
   tags:Tag[];
 };
