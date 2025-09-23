@@ -11,16 +11,15 @@ export const queryClient = new QueryClient({
 });
 
 const fetchProdcuts = (q?: string) =>
-  api.get(`/products{q ?? ""}`).then((res) => res.data);
+  api.get(`users/products${q ?? ""}`).then((res) => res.data);
 
 export const productsQuery = (q?: string) => ({
   queryKey: ["products", q],
-  queryFn: () => fetchProdcuts,
+  queryFn: () => fetchProdcuts(q),
 });
-const fetchPosts = (q?: string) =>
-  api.get(`/posts/infinite{q ?? ""}`).then((res) => res.data);
+const fetchPosts = (q?: string) =>api.get(`users/posts/infinite${q ?? ""}`).then((res) => res.data);
 
 export const postsQuery = (q?: string) => ({
   queryKey: ["posts", q],
-  queryFn: () => fetchPosts,
+  queryFn: () => fetchPosts(q),
 });

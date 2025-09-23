@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Link,useLoaderData  } from "react-router";
+import { Link  } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
 
@@ -7,10 +8,22 @@ import CarouselCard from "@/components/products/CarouselCard";
 import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";
 import { Products } from "@/types";
+import { postsQuery, productsQuery } from "@/api/query";
 
 
 function HomePage  () {
-  const { productsData, postsData } =useLoaderData();
+  // const { productsData, postsData } =useLoaderData();
+  const  { data: productsData,isLoading: isLoadingProdcuts ,isError :isErrorProducts ,error : errorProducts,refetch : refetchProducts}=useQuery(productsQuery("?limit=8"));
+  const  { data : postsData,isLoading :isLoadingPosts ,isError : isErrorPosts , error :errorPosts,refetch : refetchPosts}=useQuery(postsQuery("?limit=3"));
+  console.log(productsData);
+
+  if(isLoadingProdcuts && isLoadingPosts) {
+    return <p className=" text-center">Loading...</p>
+  }
+
+  if(isErrorProducts && isErrorPosts) {
+    return <p className=" text-center">{errorProducts.message} & {errorPosts.message}</p>
+  }
   const Title = ({
     title,
     href,
