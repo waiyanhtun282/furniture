@@ -3,7 +3,7 @@ import { Link  } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
-
+import { Skeleton } from "@/components/ui/skeleton";
 
 import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";
@@ -13,17 +13,43 @@ import { postsQuery, productsQuery } from "@/api/query";
 
 function HomePage  () {
   // const { productsData, postsData } =useLoaderData();
-  const  { data: productsData,isLoading: isLoadingProdcuts ,isError :isErrorProducts ,error : errorProducts,refetch : refetchProducts}=useQuery(productsQuery("?limit=8"));
+  const  { data: productsData,isLoading: isLoadingProducts ,isError :isErrorProducts ,error : errorProducts,refetch : refetchProducts}=useQuery(productsQuery("?limit=8"));
   const  { data : postsData,isLoading :isLoadingPosts ,isError : isErrorPosts , error :errorPosts,refetch : refetchPosts}=useQuery(postsQuery("?limit=3"));
   console.log(productsData);
 
-  if(isLoadingProdcuts && isLoadingPosts) {
-    return <p className=" text-center">Loading...</p>
-  }
+ if (isLoadingProducts && isLoadingPosts) {
+     return (
+       <div className="flex flex-col space-y-3">
+         <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+         <div className="space-y-2">
+           <Skeleton className="h-4 w-[250px]" />
+           <Skeleton className="h-4 w-[200px]" />
+         </div>
+         isLoadingProdcuts
+       </div>
+     );
+   }
 
-  if(isErrorProducts && isErrorPosts) {
-    return <p className=" text-center">{errorProducts.message} & {errorPosts.message}</p>
-  }
+   if (isErrorProducts && isErrorPosts) {
+     return (
+       <div className="container mx-auto my-32 flex flex-1 place-content-center">
+         <div className="text-center text-red-400">
+           <p className="mb-4">
+             {errorProducts.message} & {errorPosts.message}
+           </p>
+           <Button
+             onClick={() => {
+               refetchProducts();
+               refetchPosts();
+             }}
+             variant="secondary"
+           >
+             Retry
+           </Button>
+         </div>
+       </div>
+     );
+   }
   const Title = ({
     title,
     href,
@@ -70,7 +96,9 @@ function HomePage  () {
         <img src={Couch} alt="Couch" className="w-full lg:w-3/5" />
       </div>
       <div className="lg:px-5">
+        {productsData &&
         <CarouselCard products={productsData.products} />
+        }
       </div>
       <Title
         title="Featured Prodcuts"
@@ -78,12 +106,15 @@ function HomePage  () {
         sideText="View All Products"
       />
       <div className="grid gird-cols-1 px-4 md:px-0 md:grid-cols-2  lg:grid-cols-4 gap-6">
-        {productsData.products.slice(0,4).map((products :Products) => (
+        {productsData && productsData.products.slice(0,4).map((products :Products) => (
           <ProductsCard product={products} key={products.id} />
         ))}
       </div>
       <Title title="Recent Blog" href="/blogs" sideText="View All Posts" />
+      {postsData &&
+      
       <BlogsCard posts={postsData.posts} />
+      }
     </div>
   );
 };
