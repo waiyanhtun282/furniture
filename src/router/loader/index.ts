@@ -1,17 +1,24 @@
-import api, { authApi } from "@/api/index";
+import  { authApi } from "@/api/index";
+import { postsQuery, productsQuery, queryClient } from "@/api/query";
 import { Status, useAuthStore } from "@/store/authStore";
 import { redirect } from "react-router";
+// import { homeLoader } from './index';
 
+// export const homeLoader = async () => {
+//   try {
+//     const products = await api.get("users/products?limit=8");
+//     const posts = await api.get("users/posts/infinite?limit=3");
+
+//     return { productsData : products.data, postsData: posts.data};
+//   } catch (error) {
+//     console.log("HomeLoader error:", error);
+//   }
+// };
 export const homeLoader = async () => {
-  try {
-    const products = await api.get("users/products?limit=8");
-    const posts = await api.get("users/posts/infinite?limit=3");
-
-    return { productsData : products.data, postsData: posts.data};
-  } catch (error) {
-    console.log("HomeLoader error:", error);
-  }
-};
+  await queryClient.ensureQueryData(productsQuery("?limit=8"));
+  await queryClient.ensureQueryData(postsQuery("?limit=3"));
+  return null;
+}
 
 export const loginLoader = async () => {
   try {

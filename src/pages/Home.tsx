@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link  } from "react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,43 +13,47 @@ import { postsQuery, productsQuery } from "@/api/query";
 
 function HomePage  () {
   // const { productsData, postsData } =useLoaderData();
-  const  { data: productsData,isLoading: isLoadingProducts ,isError :isErrorProducts ,error : errorProducts,refetch : refetchProducts}=useQuery(productsQuery("?limit=8"));
-  const  { data : postsData,isLoading :isLoadingPosts ,isError : isErrorPosts , error :errorPosts,refetch : refetchPosts}=useQuery(postsQuery("?limit=3"));
-  console.log(productsData);
+//   const  { data: productsData,isLoading: isLoadingProducts ,isError :isErrorProducts ,error : errorProducts,refetch : refetchProducts}=useQuery(productsQuery("?limit=8"));
+//   const  { data : postsData,isLoading :isLoadingPosts ,isError : isErrorPosts , error :errorPosts,refetch : refetchPosts}=useQuery(postsQuery("?limit=3"));
+//   console.log(productsData);
 
- if (isLoadingProducts && isLoadingPosts) {
-     return (
-       <div className="flex flex-col space-y-3">
-         <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-         <div className="space-y-2">
-           <Skeleton className="h-4 w-[250px]" />
-           <Skeleton className="h-4 w-[200px]" />
-         </div>
-         isLoadingProdcuts
-       </div>
-     );
-   }
+//  if (isLoadingProducts && isLoadingPosts) {
+//      return (
+//        <div className="flex flex-col space-y-3">
+//          <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+//          <div className="space-y-2">
+//            <Skeleton className="h-4 w-[250px]" />
+//            <Skeleton className="h-4 w-[200px]" />
+//          </div>
+//          isLoadingProdcuts
+//        </div>
+//      );
+//    }
 
-   if (isErrorProducts && isErrorPosts) {
-     return (
-       <div className="container mx-auto my-32 flex flex-1 place-content-center">
-         <div className="text-center text-red-400">
-           <p className="mb-4">
-             {errorProducts.message} & {errorPosts.message}
-           </p>
-           <Button
-             onClick={() => {
-               refetchProducts();
-               refetchPosts();
-             }}
-             variant="secondary"
-           >
-             Retry
-           </Button>
-         </div>
-       </div>
-     );
-   }
+//    if (isErrorProducts && isErrorPosts) {
+//      return (
+//        <div className="container mx-auto my-32 flex flex-1 place-content-center">
+//          <div className="text-center text-red-400">
+//            <p className="mb-4">
+//              {errorProducts.message} & {errorPosts.message}
+//            </p>
+//            <Button
+//              onClick={() => {
+//                refetchProducts();
+//                refetchPosts();
+//              }}
+//              variant="secondary"
+//            >
+//              Retry
+//            </Button>
+//          </div>
+//        </div>
+//      );
+//    }
+const {data : productsData} = useSuspenseQuery(productsQuery("?limit=8"));
+
+const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
+// const postsData = data;
   const Title = ({
     title,
     href,

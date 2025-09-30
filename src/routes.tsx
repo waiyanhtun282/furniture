@@ -16,7 +16,7 @@ import ProductsDetailPage from "@/pages/products/ProductsDetail";
 import Login from "@/pages/auth/Login";
 import AuthRootLayout from "@/pages/auth/AuthRootLayout";
 import SingUpPage from "@/pages/auth/SingUp";
-import { confirmPasswordLoader, loginLoader, otpLoader } from "@/router/loader";
+import { confirmPasswordLoader, homeLoader, loginLoader, otpLoader } from "@/router/loader";
 import { confirmPasswordAction, loginAction, logoutAction, otpAction, registerAction } from "@/router/action";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: HomePage,
-        // loader: homeLoader
+        loader: homeLoader,
       },
       {
         path: "about",
@@ -132,7 +132,7 @@ export const router = createBrowserRouter([
               // load component and loader in parallel before rendering
               const [BlogsDetailPage] = await Promise.all([
                 import("@/pages/blogs/BlogsDetail"),
-              ]);
+              ])
               return { BlogsDetailPage };
             },
             // element: (
