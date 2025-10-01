@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Link  } from "react-router";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import {  useSuspenseQuery } from "@tanstack/react-query";
 import Couch from "@/data/images/couch.png";
 import CarouselCard from "@/components/products/CarouselCard";
-import { Skeleton } from "@/components/ui/skeleton";
+
 
 import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";

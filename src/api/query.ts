@@ -17,9 +17,25 @@ export const productsQuery = (q?: string) => ({
   queryKey: ["products", q],
   queryFn: () => fetchProdcuts(q),
 });
-const fetchPosts = (q?: string) =>api.get(`users/posts/infinite${q ?? ""}`).then((res) => res.data);
+const fetchPosts = (q?: string) =>
+  api.get(`users/posts/infinite${q ?? ""}`).then((res) => res.data);
 
 export const postsQuery = (q?: string) => ({
   queryKey: ["posts", q],
   queryFn: () => fetchPosts(q),
+});
+
+export const fetchInfinitPosts = async ({ pageParam = null }) => {
+  const query = pageParam ? `?limit=6&cursor=${pageParam}` : "?limit=6";
+  const response = await api.get(`users/posts/infinite${query}`);
+  return response.data;
+};
+
+export const postsInfiniteQuery = () => ({
+  queryKey: ["posts", "infinite"],
+  queryFn: fetchInfinitPosts,
+  initialPageParam: null, //starting point
+  getNextPageParam: (lastPage, pages) => lastPage.nextCursor ?? undefined,
+  //  getPrevPageParam: (firstPage, pages) => firstPage.prevCursor ?? undefined,
+  // maxPages: 6,
 });

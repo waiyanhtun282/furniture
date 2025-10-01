@@ -1,5 +1,5 @@
 import  { authApi } from "@/api/index";
-import { postsQuery, productsQuery, queryClient } from "@/api/query";
+import { postsInfiniteQuery, postsQuery, productsQuery, queryClient } from "@/api/query";
 import { Status, useAuthStore } from "@/store/authStore";
 import { redirect } from "react-router";
 // import { homeLoader } from './index';
@@ -53,3 +53,9 @@ export const confirmPasswordLoader = async () => {
 //1. login success -->loader(fetching data) -->Home screen
 //2 login success -->Home screen -->useQusery (cache after fetching data)
 //3. login success -->loader (cache after fetching data) --.Home screen
+
+
+export const blogInfiniteLoader = async () => {
+  await queryClient.ensureInfiniteQueryData(postsInfiniteQuery());
+  return null;
+}
