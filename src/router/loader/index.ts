@@ -1,7 +1,7 @@
 import  { authApi } from "@/api/index";
-import { postsInfiniteQuery, postsQuery, productsQuery, queryClient } from "@/api/query";
+import { onePostQuery, postsInfiniteQuery, postsQuery, productsQuery, queryClient } from "@/api/query";
 import { Status, useAuthStore } from "@/store/authStore";
-import { redirect } from "react-router";
+import { LoaderFunctionArgs, redirect } from "react-router";
 // import { homeLoader } from './index';
 
 // export const homeLoader = async () => {
@@ -58,4 +58,13 @@ export const confirmPasswordLoader = async () => {
 export const blogInfiniteLoader = async () => {
   await queryClient.ensureInfiniteQueryData(postsInfiniteQuery());
   return null;
+}
+
+export const postLoader = async ({params} :LoaderFunctionArgs) => {
+  if(!params.id) {
+      throw new Error("Post ID is required");
+  };
+  await queryClient.ensureQueryData(postsQuery("?limit=6"));
+  await queryClient.ensureQueryData(onePostQuery(Number(params.id)));
+  return { postId: params.postId };
 }

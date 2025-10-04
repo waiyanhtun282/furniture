@@ -37,5 +37,25 @@ export const postsInfiniteQuery = () => ({
   initialPageParam: null, //starting point
   getNextPageParam: (lastPage, pages) => lastPage.nextCursor ?? undefined,
   //  getPrevPageParam: (firstPage, pages) => firstPage.prevCursor ?? undefined,
-  // maxPages: 6,
+  maxPages: 6,
+});
+
+
+export const fetchOnePost = async (id :number) =>{
+const post =  await api.get(`users/posts/${id}`);
+if(!post) {
+  throw new Response("",{
+      status:404,
+      statusText:"Post Not Found"
+  });
+};
+return post.data;
+ 
+
+
+};
+
+export const onePostQuery = (id : number) => ({
+  queryKey: ["post", "details", id],
+  queryFn: () => fetchOnePost(id),  
 });

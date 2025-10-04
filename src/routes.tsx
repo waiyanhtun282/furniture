@@ -16,7 +16,7 @@ import ProductsDetailPage from "@/pages/products/ProductsDetail";
 import Login from "@/pages/auth/Login";
 import AuthRootLayout from "@/pages/auth/AuthRootLayout";
 import SingUpPage from "@/pages/auth/SingUp";
-import { confirmPasswordLoader, homeLoader, loginLoader, otpLoader } from "@/router/loader";
+import { confirmPasswordLoader, homeLoader, loginLoader, otpLoader, postLoader } from "@/router/loader";
 import { confirmPasswordAction, loginAction, logoutAction, otpAction, registerAction } from "@/router/action";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
@@ -135,6 +135,7 @@ export const router = createBrowserRouter([
               ])
               return { BlogsDetailPage };
             },
+            loader: postLoader,
             // element: (
             //   <Suspense
             //     fallback={<div className="text-center">loading...</div>}

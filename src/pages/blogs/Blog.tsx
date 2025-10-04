@@ -21,7 +21,7 @@ function Blogs() {
    
    =useInfiniteQuery(postsInfiniteQuery())
    const allPosts = data?.pages.flatMap(page => page.posts) ?? [];  
-   console.log(allPosts);
+  //  console.log(allPosts);
 
   return status === "pending" ? (
     <div className="flex flex-col justify-center space-y-3">
