@@ -37,7 +37,7 @@ export const postsInfiniteQuery = () => ({
   initialPageParam: null, //starting point
   getNextPageParam: (lastPage, pages) => lastPage.nextCursor ?? undefined,
   //  getPrevPageParam: (firstPage, pages) => firstPage.prevCursor ?? undefined,
-  maxPages: 6,
+  // maxPages: 6,
 });
 
 

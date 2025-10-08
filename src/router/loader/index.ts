@@ -60,11 +60,11 @@ export const blogInfiniteLoader = async () => {
   return null;
 }
 
-export const postLoader = async ({params} :LoaderFunctionArgs) => {
-  if(!params.id) {
+export const postLoader = async ({ params } :LoaderFunctionArgs) => {
+  if(!params.postId) {
       throw new Error("Post ID is required");
   };
   await queryClient.ensureQueryData(postsQuery("?limit=6"));
-  await queryClient.ensureQueryData(onePostQuery(Number(params.id)));
+  await queryClient.ensureQueryData(onePostQuery(Number(params.postId)));
   return { postId: params.postId };
 }
