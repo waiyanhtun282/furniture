@@ -59,3 +59,12 @@ export const onePostQuery = (id : number) => ({
   queryKey: ["post", "details", id],
   queryFn: () => fetchOnePost(id),  
 });
+
+export const fetchCategoryType = async () =>{
+  api.get(`users/filter-type`).then((res) => res.data);
+};
+
+export const categoryTypeQuery = () => ({
+  queryKey: ["category", "type"],
+  queryFn: fetchCategoryType,  
+});
