@@ -1,5 +1,6 @@
-import { QueryClient } from "@tanstack/react-query";
+import { keepPreviousData, QueryClient } from "@tanstack/react-query";
 import api from "@/api/index";
+import { p1 } from '@/data/images/p-1.webp';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,10 +62,39 @@ export const onePostQuery = (id : number) => ({
 });
 
 export const fetchCategoryType = async () =>{
-  api.get(`users/filter-type`).then((res) => res.data);
+  api.get('users/filter-type').then((res) => res.data);
 };
 
 export const categoryTypeQuery = () => ({
   queryKey: ["category", "type"],
   queryFn: fetchCategoryType,  
+});
+
+export const fetchInfiniteProducts = async ({ pageParam  = null, categories = null  ,types =null   }:{
+  pageParam?: number | null , categories?: string  | null , types?: string  | null
+}) => {
+  let query = pageParam ? `?limit=9&cursor=${pageParam}` : "?limit=9";
+  if(categories) query += `&category=${categories}`;
+  if(types) query += `&type=${types}`;
+   const response = await api.get(`users/products${query}`);
+  return response.data;
+};
+
+export const productsInfiniteQuery = (
+  categories: string | null = null,
+  types: string | null = null,
+) => ({
+  queryKey: [
+    "products",
+    "infinite",
+    categories ?? undefined,
+    types ?? undefined,
+  ],
+  queryFn: ({ pageParam }: { pageParam: number | null }) =>
+    fetchInfiniteProducts({ pageParam, categories, types }),
+  placeholderData: keepPreviousData,
+  initialPageParam: null, //starting point
+  getNextPageParam: (lastPage, pages) => lastPage.nextCursor ?? undefined,
+  //  getPrevPageParam: (firstPage, pages) => firstPage.prevCursor ?? undefined,
+  // maxPages: 6,
 });
