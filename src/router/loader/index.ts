@@ -1,5 +1,13 @@
-import  { authApi } from "@/api/index";
-import { categoryTypeQuery, onePostQuery, postsInfiniteQuery, postsQuery, productsInfiniteQuery, productsQuery, queryClient } from "@/api/query";
+import { authApi } from "@/api/index";
+import {
+  categoryTypeQuery,
+  onePostQuery,
+  postsInfiniteQuery,
+  postsQuery,
+  productsInfiniteQuery,
+  productsQuery,
+  queryClient,
+} from "@/api/query";
 import { Status, useAuthStore } from "@/store/authStore";
 import { LoaderFunctionArgs, redirect } from "react-router";
 // import { homeLoader } from './index';
@@ -18,7 +26,7 @@ export const homeLoader = async () => {
   await queryClient.ensureQueryData(productsQuery("?limit=8"));
   await queryClient.ensureQueryData(postsQuery("?limit=3"));
   return null;
-}
+};
 
 export const loginLoader = async () => {
   try {
@@ -54,23 +62,22 @@ export const confirmPasswordLoader = async () => {
 //2 login success -->Home screen -->useQusery (cache after fetching data)
 //3. login success -->loader (cache after fetching data) --.Home screen
 
-
 export const blogInfiniteLoader = async () => {
   await queryClient.ensureInfiniteQueryData(postsInfiniteQuery());
   return null;
-}
+};
 
-export const postLoader = async ({ params } :LoaderFunctionArgs) => {
-  if(!params.postId) {
-      throw new Error("Post ID is required");
-  };
+export const postLoader = async ({ params }: LoaderFunctionArgs) => {
+  if (!params.postId) {
+    throw new Error("Post ID is required");
+  }
   await queryClient.ensureQueryData(postsQuery("?limit=6"));
   await queryClient.ensureQueryData(onePostQuery(Number(params.postId)));
   return { postId: params.postId };
-}
+};
 
-export const productsInfinitLoader = async () => {
- await queryClient.ensureQueryData(categoryTypeQuery());
- await queryClient.prefetchInfiniteQuery(productsInfiniteQuery());
- return null;
-}
+export const productInfiniteLoader = async () => {
+  await queryClient.ensureQueryData(categoryTypeQuery());
+  await queryClient.prefetchInfiniteQuery(productsInfiniteQuery());
+  return null;
+};

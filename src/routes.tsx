@@ -1,10 +1,10 @@
-import { createBrowserRouter,redirect } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import RootLayout from "@/pages/RootLayout";
 import HomePage from "@/pages/Home";
 import AboutPage from "@/pages/About";
-import BlogsPage from '@/pages/blogs/Blog';
-import BlogsDetailPage from '@/pages/blogs/BlogsDetail';
-import BlogsRootLayout from '@/pages/blogs/BlogsRootLayout';
+import BlogsPage from "@/pages/blogs/Blog";
+import BlogsDetailPage from "@/pages/blogs/BlogsDetail";
+import BlogsRootLayout from "@/pages/blogs/BlogsRootLayout";
 // const BlogsRootLayout = lazy(() => import("@/pages/blogs/BlogsRootLayout"));
 // const BlogsPage = lazy(() => import("@/pages/blogs/Blog"));
 // const BlogsDetailPage = lazy(() => import("@/pages/blogs/BlogsDetail"));
@@ -16,12 +16,24 @@ import ProductsDetailPage from "@/pages/products/ProductsDetail";
 import Login from "@/pages/auth/Login";
 import AuthRootLayout from "@/pages/auth/AuthRootLayout";
 import SingUpPage from "@/pages/auth/SingUp";
-import { confirmPasswordLoader, homeLoader, loginLoader, otpLoader, postLoader, productsInfinitLoader } from "@/router/loader";
-import { confirmPasswordAction, loginAction, logoutAction, otpAction, registerAction } from "@/router/action";
+import {
+  confirmPasswordLoader,
+  homeLoader,
+  loginLoader,
+  otpLoader,
+  postLoader,
+  productInfiniteLoader,
+} from "@/router/loader";
+import {
+  confirmPasswordAction,
+  loginAction,
+  logoutAction,
+  otpAction,
+  registerAction,
+} from "@/router/action";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
 // import SuspenseFallback from "./components/SuspenseFallback";
-
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +62,6 @@ export const router = createBrowserRouter([
           ]);
           return { ProductsRootLayout };
         },
-        loader: productsInfinitLoader,
 
         children: [
           {
@@ -68,6 +79,7 @@ export const router = createBrowserRouter([
               ]);
               return { ProductsPage };
             },
+            loader: productInfiniteLoader,
           },
           {
             path: ":productsId",
@@ -133,7 +145,7 @@ export const router = createBrowserRouter([
               // load component and loader in parallel before rendering
               const [BlogsDetailPage] = await Promise.all([
                 import("@/pages/blogs/BlogsDetail"),
-              ])
+              ]);
               return { BlogsDetailPage };
             },
             loader: postLoader,
@@ -157,40 +169,39 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
-    loader:loginLoader,
-    action:loginAction 
+    loader: loginLoader,
+    action: loginAction,
     // element: <Login />,
   },
   {
     path: "/register",
     Component: AuthRootLayout,
-    children:[
+    children: [
       {
-        index:true,
+        index: true,
         Component: SingUpPage,
-        loader:loginLoader,
-        action:registerAction
+        loader: loginLoader,
+        action: registerAction,
       },
       {
-      path:"otp",
-      Component:OtpPage,
-      loader:otpLoader,
-      action:otpAction
+        path: "otp",
+        Component: OtpPage,
+        loader: otpLoader,
+        action: otpAction,
       },
       {
-        path:"confirm-password",
-        Component:ConfirmPasswordPage,
-        loader:confirmPasswordLoader,
-        action:confirmPasswordAction
-
-      }
+        path: "confirm-password",
+        Component: ConfirmPasswordPage,
+        loader: confirmPasswordLoader,
+        action: confirmPasswordAction,
+      },
     ],
 
     // element: <Register />,
   },
   {
     path: "/logout",
-    action:logoutAction,
+    action: logoutAction,
     loader: () => redirect("/"),
-  }
+  },
 ]);

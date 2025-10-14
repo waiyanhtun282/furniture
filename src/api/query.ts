@@ -1,6 +1,6 @@
 import { keepPreviousData, QueryClient } from "@tanstack/react-query";
 import api from "@/api/index";
-import { p1 } from '@/data/images/p-1.webp';
+
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +18,7 @@ export const productsQuery = (q?: string) => ({
   queryKey: ["products", q],
   queryFn: () => fetchProdcuts(q),
 });
+
 const fetchPosts = (q?: string) =>
   api.get(`users/posts/infinite${q ?? ""}`).then((res) => res.data);
 
@@ -61,8 +62,8 @@ export const onePostQuery = (id : number) => ({
   queryFn: () => fetchOnePost(id),  
 });
 
-export const fetchCategoryType = async () =>{
-  api.get('users/filter-type').then((res) => res.data);
+ const fetchCategoryType =  async() =>{
+  api.get("users/filter-type").then((res) => res.data);
 };
 
 export const categoryTypeQuery = () => ({
@@ -73,7 +74,7 @@ export const categoryTypeQuery = () => ({
 export const fetchInfiniteProducts = async ({ pageParam  = null, categories = null  ,types =null   }:{
   pageParam?: number | null , categories?: string  | null , types?: string  | null
 }) => {
-  let query = pageParam ? `?limit=9&cursor=${pageParam}` : "?limit=9";
+  let query = pageParam ? `?limit5=&cursor=${pageParam}` : "?limit=5";
   if(categories) query += `&category=${categories}`;
   if(types) query += `&type=${types}`;
    const response = await api.get(`users/products${query}`);
@@ -87,8 +88,7 @@ export const productsInfiniteQuery = (
   queryKey: [
     "products",
     "infinite",
-    categories ?? undefined,
-    types ?? undefined,
+    // { categories, types }
   ],
   queryFn: ({ pageParam }: { pageParam: number | null }) =>
     fetchInfiniteProducts({ pageParam, categories, types }),
