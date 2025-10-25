@@ -22,35 +22,47 @@ import type { Category } from "@/types";
 interface FilterProps {
   categories: Category[]; 
   types: Category[] ;
+  
 }
 
 interface ProductsFilterProps {
   filterList: FilterProps;
+  selectedCategory: string[];
+  selectedType: string[];
+  onFilterChange: (categories: string[], types: string[]) => void;
 }
 
 const FormSchema = z.object({
   categories: z
     .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: "You have to select at least categories.",
-    }),
-  types: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least types.",
-  }),
+    // .refine((value) => value.some((item) => item), {
+    //   message: "You have to select at least categories.",
+    // })
+    ,
+  types: z.array(z.string())
+  // .refine((value) => value.some((item) => item), {
+  //   message: "You have to select at least types.",
+  // }),
 });
 
-export default function PrductsFilters({filterList}:ProductsFilterProps) {
+export default function PrductsFilters({
+  filterList,
+  selectedCategory,
+  selectedType,
+  onFilterChange,
+}: ProductsFilterProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      categories: [],
-      types: [],
+      categories: selectedCategory,
+      types: selectedType,
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-   console.log("Submit data",data);
-    
+    // console.log("Submit data", data);
+    onFilterChange(data.categories, data.types);
+
   }
 
   return (
@@ -80,7 +92,10 @@ export default function PrductsFilters({filterList}:ProductsFilterProps) {
                             checked={field.value?.includes(item.id.toString())}
                             onCheckedChange={(checked) => {
                               return checked
-                                ? field.onChange([...field.value, item.id.toString()])
+                                ? field.onChange([
+                                    ...field.value,
+                                    item.id.toString(),
+                                  ])
                                 : field.onChange(
                                     field.value?.filter(
                                       (value) => value !== item.id.toString(),
@@ -107,7 +122,7 @@ export default function PrductsFilters({filterList}:ProductsFilterProps) {
           render={() => (
             <FormItem>
               <div className="mb-4">
-                <FormLabel className="text-base">Furnitures  Types</FormLabel>
+                <FormLabel className="text-base">Furnitures Types</FormLabel>
               </div>
               {filterList.types.map((item) => (
                 <FormField
@@ -125,7 +140,10 @@ export default function PrductsFilters({filterList}:ProductsFilterProps) {
                             checked={field.value?.includes(item.id.toString())}
                             onCheckedChange={(checked) => {
                               return checked
-                                ? field.onChange([...field.value, item.id,toString()])
+                                ? field.onChange([
+                                    ...field.value,
+                                    item.id.toString(),
+                                  ])
                                 : field.onChange(
                                     field.value?.filter(
                                       (value) => value !== item.id.toString(),
