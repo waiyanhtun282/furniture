@@ -23,6 +23,7 @@ import {
   otpLoader,
   postLoader,
   productInfiniteLoader,
+  productLoader,
 } from "@/router/loader";
 import {
   confirmPasswordAction,
@@ -82,7 +83,7 @@ export const router = createBrowserRouter([
             loader: productInfiniteLoader,
           },
           {
-            path: ":productsId",
+            path: ":productId",
             Component: ProductsDetailPage,
 
             // element: (
@@ -99,6 +100,7 @@ export const router = createBrowserRouter([
               ]);
               return { ProductsDetailPage };
             },
+            loader: productLoader,
           },
         ],
       },

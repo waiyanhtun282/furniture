@@ -1,7 +1,7 @@
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
-import { products } from "@/data/porducts";
-import { Link, useParams } from "react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link, useLoaderData } from "react-router";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import ProductsCard from "@/components/products/ProductsCard";
 import Autoplay from "embla-carousel-autoplay";
@@ -9,12 +9,13 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-
+  
 } from "@/components/ui/carousel";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { FormatPrice } from "@/lib/utils";
 import Rating from "@/components/products/Rating";
+import { oneProductQuery, productsQuery } from "@/api/query";
 import AddToFavourite from "@/components/products/AddToFavourite";
 import AddToCardForm from "@/components/products/AddToCardForm";
 import {
@@ -23,10 +24,21 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Images, Products } from "@/types/index";
+
+const imageUrl = import.meta.env.VITE_IMAGE_URL;
 
 function ProductsDetail() {
-  const { productsId } = useParams();
-  const product = products.find((product) => product.id === productsId);
+  // const { productsId } = useParams();
+  // const product = products.find((product) => product.id === productsId);
+  const { productId } = useLoaderData() ;
+
+  const  { data : productsData}  = useSuspenseQuery(productsQuery("?limit=4"));
+
+  const  { data : productsDetail } =useSuspenseQuery(oneProductQuery(productId));
+
+
+  
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true }),
   );
@@ -41,12 +53,12 @@ function ProductsDetail() {
       <section className="my-6 flex flex-col gap-8 md:flex-row md:gap-16">
         <Carousel plugins={[plugin.current]} className="w-full md:w-1/2">
           <CarouselContent>
-            {product?.images.map((images) => (
-              <CarouselItem key={images}>
+            {productsDetail.product.images.map((images : Images ) => (
+              <CarouselItem key={images.id}>
                 <div className="p-1">
                   <img
-                    src={images}
-                    alt={product.name}
+                    src={ imageUrl + images.path}
+                    alt={productsDetail.product.name}
                     className="size-full rounded-md object-cover"
                   />
                 </div>
@@ -58,30 +70,30 @@ function ProductsDetail() {
         <div className="flex w-full flex-col gap-4 md:w-1/2">
           <div className="space-y-2">
             <h2 className="mb-2 line-clamp-1 text-2xl font-bold">
-              {product?.name}
+              {productsDetail.product.name}
             </h2>
             <p className="text-muted-foreground text-base">
-              {FormatPrice(Number(product?.price))}
+              {FormatPrice(Number(productsDetail.product.price))}
             </p>
           </div>
           <Separator className="my-1.5" />
           <p className="text-muted-foreground text-base">
-            {product?.inventory} in stock
+            {productsDetail.product.inventory} in stock
           </p>
           <div className="flex items-center justify-between">
-            <Rating rating={Number(product?.rating)} />
+            <Rating rating={Number(productsDetail.product.rating)} />
             <AddToFavourite
-              productId={String(product?.id)}
-              rating={Number(product?.rating)}
+              productId={String(productsDetail.product.id)}
+              rating={Number(productsDetail.product.rating)}
             />
           </div>
-          <AddToCardForm canBuy={product?.status === "active"} />
+          <AddToCardForm canBuy={productsDetail.product.status === "ACTIVE"} />
           <Separator className="my-5" />
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             <AccordionItem value="item-1" className="border-none">
               <AccordionTrigger>Description</AccordionTrigger>
               <AccordionContent>
-               {product?.description ?? "No description is avaiable for this products"}
+               {productsDetail.product.description ?? "No description is avaiable for this products"}
               </AccordionContent>
             </AccordionItem>
 
@@ -94,7 +106,7 @@ function ProductsDetail() {
         </h2>
         <ScrollArea className="pb-8">
           <div className="flex gap-4">
-            {products.slice(0, 4).map((item) => (
+            {productsData.products.slice(0, 4).map((item : Products) => (
               <ProductsCard
                 key={item.id}
                 product={item}
