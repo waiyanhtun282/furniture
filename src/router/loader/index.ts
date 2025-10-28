@@ -1,3 +1,4 @@
+import { LoaderFunctionArgs, redirect } from "react-router";
 import { authApi } from "@/api/index";
 import {
   categoryTypeQuery,
@@ -10,7 +11,6 @@ import {
   queryClient,
 } from "@/api/query";
 import { Status, useAuthStore } from "@/store/authStore";
-import { LoaderFunctionArgs, redirect } from "react-router";
 // import { homeLoader } from './index';
 
 // export const homeLoader = async () => {
