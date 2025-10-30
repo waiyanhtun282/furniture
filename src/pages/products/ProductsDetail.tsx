@@ -31,9 +31,10 @@ const imageUrl = import.meta.env.VITE_IMAGE_URL;
 function ProductsDetail() {
   // const { productsId } = useParams();
   // const product = products.find((product) => product.id === productsId);
-  const { productId } = useLoaderData() ;
+  const { productId } = useLoaderData(); 
+  console.log(productId);
 
-  const  { data : productsData}  = useSuspenseQuery(productsQuery());
+  const  { data : productsData}  = useSuspenseQuery(productsQuery("?limit=4"));
 
   const  { data : productsDetail } =useSuspenseQuery(oneProductQuery(productId));
 
@@ -59,6 +60,8 @@ function ProductsDetail() {
                   <img
                     src={imageUrl + images.path}
                     alt={productsDetail.product.name}
+                    loading="lazy"
+                    decoding="async"
                     className="size-full rounded-md object-cover"
                   />
                 </div>

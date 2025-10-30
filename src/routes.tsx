@@ -57,48 +57,24 @@ export const router = createBrowserRouter([
         //   <ProductsRootLayout />
         // </Suspense>
         lazy: async () => {
-          // load component and loader in parallel before rendering
-          const [ProductsRootLayout] = await Promise.all([
-            import("@/pages/products/ProductsRootLayout"),
-          ]);
-          return { ProductsRootLayout };
+          const module = await import("@/pages/products/ProductsRootLayout");
+          return { Component: module.default };
         },
 
         children: [
           {
             index: true,
-            Component: ProductsPage,
-            //   Component: (
-            //     <Suspense fallback={<div className="text-center">loading...</div>}>
-            //   <ProductsPage />
-            //   </Suspense>
-            // ),
             lazy: async () => {
-              // load component and loader in parallel before rendering
-              const [ProductsPage] = await Promise.all([
-                import("@/pages/products/Products"),
-              ]);
-              return { ProductsPage };
+              const module = await import("@/pages/products/Products");
+              return { Component: module.default };
             },
             loader: productInfiniteLoader,
           },
           {
             path: ":productId",
-            Component: ProductsDetailPage,
-
-            // element: (
-            //   <Suspense
-            //     fallback={<div className="text-center">loading...</div>}
-            //   >
-            //     <ProductsDetailPage />
-            //   </Suspense>
-            // ),
             lazy: async () => {
-              // load component and loader in parallel before rendering
-              const [ProductsDetailPage] = await Promise.all([
-                import("@/pages/products/ProductsDetail"),
-              ]);
-              return { ProductsDetailPage };
+              const module = await import("@/pages/products/ProductsDetail");
+              return { Component: module.default };
             },
             loader: productLoader,
           },
@@ -106,13 +82,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "blogs",
-        Component: BlogsRootLayout,
         lazy: async () => {
-          // load component and loader in parallel before rendering
-          const [BlogsRootLayout] = await Promise.all([
-            import("@/pages/blogs/BlogsRootLayout"),
-          ]);
-          return { BlogsRootLayout };
+          const module = await import("@/pages/blogs/BlogsRootLayout");
+          return { Component: module.default };
         },
         // element: (
         //   <Suspense fallback={<div className="text-center">loading...</div>}>
@@ -122,14 +94,9 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: BlogsPage,
-
             lazy: async () => {
-              // load component and loader in parallel before rendering
-              const [BlogsPage] = await Promise.all([
-                import("@/pages/blogs/Blog"),
-              ]);
-              return { BlogsPage };
+              const module = await import("@/pages/blogs/Blog");
+              return { Component: module.default };
             },
 
             // element: (
@@ -142,13 +109,9 @@ export const router = createBrowserRouter([
           },
           {
             path: ":postId",
-            Component: BlogsDetailPage,
             lazy: async () => {
-              // load component and loader in parallel before rendering
-              const [BlogsDetailPage] = await Promise.all([
-                import("@/pages/blogs/BlogsDetail"),
-              ]);
-              return { BlogsDetailPage };
+              const module = await import("@/pages/blogs/BlogsDetail");
+              return { Component: module.default };
             },
             loader: postLoader,
             // element: (

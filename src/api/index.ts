@@ -8,6 +8,10 @@ const api =axios.create({
     withCredentials: true,
 });
 
+// axios.interceptors.request.use((request) => {
+//   console.log("Starting Request", request);
+//   return request;
+// });
 api.interceptors.response.use(
     (response) =>response,
     (error) => {
@@ -19,6 +23,8 @@ api.interceptors.response.use(
     }
 
 );
+
+
 
 export const authApi =axios.create({
     baseURL: import.meta.env.VITE_API_URL ,
