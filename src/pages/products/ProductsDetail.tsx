@@ -24,15 +24,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Image, Product } from "@/types";
+import type { Image, Product } from "@/types";
 
 const imageUrl = import.meta.env.VITE_IMAGE_URL;
 
 function ProductsDetail() {
   // const { productsId } = useParams();
   // const product = products.find((product) => product.id === productsId);
-  const { productId } = useLoaderData(); 
-  console.log(productId);
+  const { productId } =useLoaderData(); 
+  // console.log(productId);
 
   const  { data : productsData}  = useSuspenseQuery(productsQuery("?limit=4"));
 
@@ -54,7 +54,7 @@ function ProductsDetail() {
       <section className="my-6 flex flex-col gap-8 md:flex-row md:gap-16">
         <Carousel plugins={[plugin.current]} className="w-full md:w-1/2">
           <CarouselContent>
-            {productsDetail.product.images.map((images: Image) => (
+            {productsDetail.product?.images.map((images: Image) => (
               <CarouselItem key={images.id}>
                 <div className="p-1">
                   <img
