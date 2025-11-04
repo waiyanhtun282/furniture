@@ -87,8 +87,22 @@ export const productLoader = async ({ params }: LoaderFunctionArgs) => {
   if (!params.productId) {
     throw new Error("No Product ID provided");
   }
-  
+
   await queryClient.ensureQueryData(productsQuery("?limit=4"));
   await queryClient.ensureQueryData(oneProductQuery(Number(params.productId)));
+  console.log(params.productId)
   return { productId : params.productId };
 };
+
+// export const productLoader = async ({ params }: LoaderFunctionArgs) => {
+//   const id = Number(params.productId);
+
+//   if (!id || isNaN(id)) {
+//     throw new Response("Invalid Product ID", { status: 400 });
+//   }
+
+//   await queryClient.ensureQueryData(productsQuery("?limit=4"));
+//   await queryClient.ensureQueryData(oneProductQuery(id));
+
+//   return { productId: id };
+// };

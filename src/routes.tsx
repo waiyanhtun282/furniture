@@ -2,21 +2,18 @@ import { createBrowserRouter, redirect } from "react-router";
 import RootLayout from "@/pages/RootLayout";
 import HomePage from "@/pages/Home";
 import AboutPage from "@/pages/About";
-import BlogsPage from "@/pages/blogs/Blog";
-import BlogsDetailPage from "@/pages/blogs/BlogsDetail";
-import BlogsRootLayout from "@/pages/blogs/BlogsRootLayout";
 // const BlogsRootLayout = lazy(() => import("@/pages/blogs/BlogsRootLayout"));
 // const BlogsPage = lazy(() => import("@/pages/blogs/Blog"));
 // const BlogsDetailPage = lazy(() => import("@/pages/blogs/BlogsDetail"));
 
 import ErrorPage from "@/pages/Error";
 import ProductsRootLayout from "@/pages/products/ProductsRootLayout";
-import ProductsPage from "@/pages/products/Products";
-import ProductsDetailPage from "@/pages/products/ProductsDetail";
+
 import Login from "@/pages/auth/Login";
 import AuthRootLayout from "@/pages/auth/AuthRootLayout";
 import SingUpPage from "@/pages/auth/SingUp";
 import {
+  blogInfiniteLoader,
   confirmPasswordLoader,
   homeLoader,
   loginLoader,
@@ -66,17 +63,18 @@ export const router = createBrowserRouter([
             index: true,
             lazy: async () => {
               const module = await import("@/pages/products/Products");
-              return { Component: module.default };
+              return {
+                Component: module.default,
+                loader: productInfiniteLoader,
+              };
             },
-            loader: productInfiniteLoader,
           },
           {
             path: ":productId",
             lazy: async () => {
               const module = await import("@/pages/products/ProductsDetail");
-              return { Component: module.default };
+              return { Component: module.default, loader: productLoader };
             },
-            loader: productLoader,
           },
         ],
       },
@@ -84,7 +82,7 @@ export const router = createBrowserRouter([
         path: "blogs",
         lazy: async () => {
           const module = await import("@/pages/blogs/BlogsRootLayout");
-          return { Component: module.default };
+          return { Component: module.default, loader: blogInfiniteLoader };
         },
         // element: (
         //   <Suspense fallback={<div className="text-center">loading...</div>}>
@@ -111,9 +109,9 @@ export const router = createBrowserRouter([
             path: ":postId",
             lazy: async () => {
               const module = await import("@/pages/blogs/BlogsDetail");
-              return { Component: module.default };
+              return { Component: module.default, loader: postLoader };
             },
-            loader: postLoader,
+
             // element: (
             //   <Suspense
             //     fallback={<div className="text-center">loading...</div>}

@@ -32,7 +32,7 @@ function ProductsDetail() {
   // const { productsId } = useParams();
   // const product = products.find((product) => product.id === productsId);
   const { productId } =useLoaderData(); 
-  // console.log(productId);
+console.log("Product ID:", productId);
 
   const  { data : productsData}  = useSuspenseQuery(productsQuery("?limit=4"));
 
