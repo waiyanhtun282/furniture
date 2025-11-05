@@ -10,13 +10,23 @@ export const queryClient = new QueryClient({
   },
 });
 
-const fetchProducts = (q?: string) =>
-  api.get(`/users/products${q ?? ""}`).then((res) => res.data);
+// const fetchProducts = (q?: string) => api.get(`/users/products${q ?? ""}`).then((res) => res.data);
 
-export const productsQuery = (q?: string) => ({
-  queryKey: ["products", q],
-  queryFn: () => fetchProducts(q),
+const fetchProducts = (limit?: number ) => {
+  const query = typeof limit === "number" && limit > 0 ? `?limit=${limit}` : "";
+  return api.get(`/users/products${query}`).then((res) => res.data);
+};
+export const productsQuery = (limit?: number) => ({
+  queryKey: ["products", limit],
+  queryFn: () => fetchProducts(limit),
 });
+
+// export const productsQuery = (q?: string) => ({
+//   queryKey: ["products", q],
+//   queryFn: () => fetchProducts(q),
+// });
+
+
 
 const fetchPosts = (q?: string) =>
   api.get(`/users/posts/infinite${q ?? ""}`).then((res) => res.data);
@@ -108,7 +118,7 @@ const fetchOneProduct = async (id: number) => {
       statusText: "Not Found",
     });
   }
-  console.log("productdata",product.data)
+  // console.log("productdata",product.data)
   return product.data;
 };
 

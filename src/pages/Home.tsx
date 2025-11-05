@@ -7,7 +7,7 @@ import CarouselCard from "@/components/products/CarouselCard";
 
 import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";
-import { Products } from "@/types";
+import { Product } from "@/types";
 import { postsQuery, productsQuery } from "@/api/query";
 
 
@@ -50,7 +50,7 @@ function HomePage  () {
 //        </div>
 //      );
 //    }
-const {data : productsData} = useSuspenseQuery(productsQuery("?limit=8"));
+const { data: productsData } = useSuspenseQuery(productsQuery(8));
 
 const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
 // const postsData = data;
@@ -110,7 +110,7 @@ const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
         sideText="View All Products"
       />
       <div className="grid gird-cols-1 px-4 md:px-0 md:grid-cols-2  lg:grid-cols-4 gap-6">
-        {productsData && productsData.products.slice(0,4).map((products :Products) => (
+        {productsData && productsData.products.slice(0,4).map((products :Product) => (
           <ProductsCard product={products} key={products.id} />
         ))}
       </div>
