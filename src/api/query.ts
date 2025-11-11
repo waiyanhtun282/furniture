@@ -9,17 +9,17 @@ export const queryClient = new QueryClient({
     },
   },
 });
-
-// const fetchProducts = (q?: string) => api.get(`/users/products${q ?? ""}`).then((res) => res.data);
-
-const fetchProducts = (limit?: number ) => {
-  const query = typeof limit === "number" && limit > 0 ? `?limit=${limit}` : "";
+const fetchProducts = (limit: string | undefined ) => {
+  const query = typeof limit !== "number" && limit == undefined ? `?limit=${limit}` : "";
   return api.get(`/users/products${query}`).then((res) => res.data);
 };
-export const productsQuery = (limit?: number) => ({
+export const productsQuery = (limit: string | undefined) => ({
   queryKey: ["products", limit],
   queryFn: () => fetchProducts(limit),
 });
+
+// const fetchProducts = (q?: string) => api.get(`/users/products${q ?? ""}`).then((res) => res.data);
+
 
 // export const productsQuery = (q?: string) => ({
 //   queryKey: ["products", q],

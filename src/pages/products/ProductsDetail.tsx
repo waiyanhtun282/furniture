@@ -35,7 +35,7 @@ function ProductsDetail() {
   
 // console.log("Product ID:", productId);
 
-  const  { data : productsData}  = useSuspenseQuery(productsQuery("?limit=4"));
+  const { data: productsData } = useSuspenseQuery(productsQuery( "?limit=4" ));
 
   const  { data : productsDetail } =useSuspenseQuery(oneProductQuery(productId));
 

@@ -24,7 +24,7 @@ import { Status, useAuthStore } from "@/store/authStore";
 //   }
 // };
 export const homeLoader = async () => {
-  await queryClient.ensureQueryData(productsQuery("?limit=8"));
+  await queryClient.ensureQueryData(productsQuery( 8 ));
   await queryClient.ensureQueryData(postsQuery("?limit=3"));
   return null;
 };
@@ -90,7 +90,7 @@ export const productLoader = async ({ params }: LoaderFunctionArgs) => {
 
   await queryClient.ensureQueryData(productsQuery("?limit=4"));
   await queryClient.ensureQueryData(oneProductQuery(Number(params.productId)));
-  console.log(params.productId)
+  // console.log(params.productId)
   return { productId : params.productId };
 };
 
