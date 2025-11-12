@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import Autoplay from "embla-carousel-autoplay";
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
@@ -39,6 +39,7 @@ function ProductsDetail() {
 
   const  { data : productsDetail } =useSuspenseQuery(oneProductQuery(productId));
 
+  const navigate = useNavigate();
 
   
   const plugin = React.useRef(
@@ -47,10 +48,10 @@ function ProductsDetail() {
 
   return (
     <div className="container mx-auto px-4 md:px-0">
-      <Button asChild variant="outline" className="mt-8">
-        <Link to="/products">
+      <Button  variant="outline" className="mt-8 " onClick={() =>navigate(-1)}>
           <Icons.arrowLeft /> All Prouducts
-        </Link>
+         {/* <Link to="/products"> */}
+        {/* </Link> */}
       </Button>
       <section className="my-6 flex flex-col gap-8 md:flex-row md:gap-16">
         <Carousel plugins={[plugin.current]} className="w-full md:w-1/2">
