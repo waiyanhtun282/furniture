@@ -9,22 +9,22 @@ export const queryClient = new QueryClient({
     },
   },
 });
-const fetchProducts = (limit: string | undefined ) => {
-  const query = typeof limit !== "number" && limit == undefined ? `?limit=${limit}` : "";
-  return api.get(`/users/products${query}`).then((res) => res.data);
-};
-export const productsQuery = (limit: string | undefined) => ({
-  queryKey: ["products", limit],
-  queryFn: () => fetchProducts(limit),
-});
-
-// const fetchProducts = (q?: string) => api.get(`/users/products${q ?? ""}`).then((res) => res.data);
-
-
-// export const productsQuery = (q?: string) => ({
-//   queryKey: ["products", q],
-//   queryFn: () => fetchProducts(q),
+// const fetchProducts = (limit: string | undefined ) => {
+//   const query = typeof limit !== "number" && limit == undefined ? `?limit=${limit}` : "";
+//   return api.get(`/users/products${query}`).then((res) => res.data);
+// };
+// export const productsQuery = (limit: string | undefined) => ({
+//   queryKey: ["products", limit],
+//   queryFn: () => fetchProducts(limit),
 // });
+
+const fetchProducts = (q?: string) => api.get(`/users/products${q ?? ""}`).then((res) => res.data);
+
+
+export const productsQuery = (q?: string) => ({
+  queryKey: ["products", q],
+  queryFn: () => fetchProducts(q),
+});
 
 
 
