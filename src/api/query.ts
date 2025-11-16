@@ -126,3 +126,6 @@ export const oneProductQuery = (id: number) => ({
   queryKey: ["products", "details", id],
   queryFn: () => fetchOneProduct(id),
 });
+
+
+
