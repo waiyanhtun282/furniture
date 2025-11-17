@@ -24,6 +24,7 @@ import {
 } from "@/router/loader";
 import {
   confirmPasswordAction,
+  favouriteAction,
   loginAction,
   logoutAction,
   otpAction,
@@ -73,7 +74,12 @@ export const router = createBrowserRouter([
             path: ":productId",
             lazy: async () => {
               const module = await import("@/pages/products/ProductsDetail");
-              return { Component: module.default, loader: productLoader };
+              return { 
+                Component: module.default, 
+                loader: productLoader,
+                action: favouriteAction
+
+               };
             },
           },
         ],

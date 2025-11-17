@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/Icons";
 
 interface FavouriteProps extends ButtonProps {
-  productId: string;
+  productId: number;
   rating?: number;
 }
 
@@ -21,7 +21,8 @@ function AddToFavourite({
         className={cn("size-4 shrink-0", className)}
         {...props}
       >
-        <Icons.heart className="size-4" />
+        {/* <Icons.heart className="size-4" /> */}
+        <Icons.filled className="size-6 text-red-500" />
       </Button>
     </div>
   );

@@ -2,6 +2,7 @@ import api, { authApi } from "@/api";
 import { redirect,ActionFunctionArgs } from "react-router";
 import { AxiosError } from "axios";
 import {  Status, useAuthStore } from "@/store/authStore";
+import { queryClient } from "@/api/query";
 
 export const loginAction = async({request}:ActionFunctionArgs) =>{
     const formData = await request.formData();
@@ -128,4 +129,39 @@ export const confirmPasswordAction = async({request}:ActionFunctionArgs) =>{
          };
        } else throw error;
      }
+}
+
+export const favouriteAction = async({ request, params }:ActionFunctionArgs) =>{
+   if(!params.productId){
+    throw new Error("Product ID is required"); 
+  }
+   const formData = await request.formData();
+
+   const data ={
+    productId : params.productId,
+    favorite: formData.get('favorite') === 'true' ? true : false,
+   }
+
+   try {
+    const response = await api.patch("/users/products/toggle-favourite", data);
+    if(response.status !== 200) {
+        return {error:response.data || 'Favourite Action failed. Please try again.'};
+    }
+
+    await queryClient.invalidateQueries({
+      queryKey: ["products", "details", params.productId],
+    });
+
+    return null;
+    
+   } catch (error) {
+    if (error instanceof AxiosError) {
+      return {
+        error: error.response?.data || "Login failed. Please try again.",
+      };
+    } else throw error;
+   }
+
+ 
+
 }
