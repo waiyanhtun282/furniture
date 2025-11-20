@@ -88,8 +88,9 @@ function ProductsDetail() {
           <div className="flex items-center justify-between">
             <Rating rating={Number(productsDetail.product.rating)} />
             <AddToFavourite
-              productId={String(productsDetail.product.id)}
+              productId={Number(productsDetail.product.id)}
               rating={Number(productsDetail.product.rating)}
+              isFavourite ={productsDetail.product.users.length === 1 }
             />
           </div>
           <AddToCardForm canBuy={productsDetail.product.status === "ACTIVE"} />

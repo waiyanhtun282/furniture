@@ -137,10 +137,10 @@ export const favouriteAction = async({ request, params }:ActionFunctionArgs) =>{
   }
    const formData = await request.formData();
 
-   const data ={
-    productId : params.productId,
-    favorite: formData.get('favorite') === 'true' ? true : false,
-   }
+   const data = {
+     productId: Number(params.productId),
+     favourite: formData.get("favourite") === "true" ? true : false,
+   };
 
    try {
     const response = await api.patch("/users/products/toggle-favourite", data);
@@ -157,7 +157,7 @@ export const favouriteAction = async({ request, params }:ActionFunctionArgs) =>{
    } catch (error) {
     if (error instanceof AxiosError) {
       return {
-        error: error.response?.data || "Login failed. Please try again.",
+        error: error.response?.data || "Favourite failed. Please try again.",
       };
     } else throw error;
    }
