@@ -16,7 +16,9 @@ import { Separator } from "@/components/ui/separator";
 import { FormatPrice } from "@/lib/utils";
 import Rating from "@/components/products/Rating";
 import { oneProductQuery, productsQuery } from "@/api/query";
-import AddToFavourite from "@/components/products/AddToFavourite";
+// import AddToFavourite from "@/components/products/AddToFavourite";
+import AddToFavourite from "@/components/products/TanstackOptimizeFavourite";
+
 import AddToCardForm from "@/components/products/AddToCardForm";
 import {
   Accordion,
@@ -88,7 +90,7 @@ function ProductsDetail() {
           <div className="flex items-center justify-between">
             <Rating rating={Number(productsDetail.product.rating)} />
             <AddToFavourite
-              productId={Number(productsDetail.product.id)}
+              productId={String(productsDetail.product.id)}
               rating={Number(productsDetail.product.rating)}
               isFavourite ={productsDetail.product.users.length === 1 }
             />

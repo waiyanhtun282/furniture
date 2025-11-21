@@ -19,6 +19,12 @@ function AddToFavourite({
   
   const fetcher = useFetcher({key:`product:${productId}`});
 
+  let favourite =isFavourite ;
+  
+  if(fetcher.formData){
+    favourite = fetcher.formData.get("favourite") === "true";
+  }
+
   return (
     <fetcher.Form method="post">
       <Button
@@ -26,12 +32,12 @@ function AddToFavourite({
         size="icon"
         className={cn("size-4 shrink-0", className)}
         name="favourite"
-        value={isFavourite ? "false" : "true"}
-        title={ isFavourite ? "Remove from favourites" : "Add to favourites"}
+        value={favourite ? "false" : "true"}
+        title={ favourite ? "Remove from favourites" : "Add to favourites"}
         {...props}
       >
         {
-          isFavourite ? (
+          favourite ? (
         <Icons.filled className="size-5 text-red-500" />
 
           ):(

@@ -24,7 +24,7 @@ import {
 } from "@/router/loader";
 import {
   confirmPasswordAction,
-  favouriteAction,
+  // favouriteAction,
   loginAction,
   logoutAction,
   otpAction,
@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
               return { 
                 Component: module.default, 
                 loader: productLoader,
-                action: favouriteAction
+                // action: favouriteAction
 
                };
             },
