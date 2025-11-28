@@ -11,35 +11,62 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 import { Icons } from "@/components/Icons";
-import { cn } from "@/lib/utils";
+import { on } from 'events';
+
 
 
 const quantitySchema = z.object({
-  quantity: z.number().min(0).default(1)
+  quantity: z.string().min(1,"Must not be empty").max(4,"Too many digits,Is it real?").regex(/^|d+$/,"Must be a number"),
 });
 
+interface EditTableProps {
+  
+  quantity: number ;
+  onUpdate: (quantity: number) => void;
+  onDelete: () => void;
 
-export default function EditTable() {
+}
+
+export default function EditTable({  quantity,onUpdate, onDelete }: EditTableProps) {
 
   const form = useForm<z.infer<typeof quantitySchema>>({
     resolver: zodResolver(quantitySchema),
     defaultValues: {
-      quantity: 1,
+      quantity: quantity.toString(),
     },
   });
 
-  function onSubmit(values: z.infer<typeof quantitySchema>) {
-    console.log(values);
-    toast.success("Product is added to cart successfully")
-    // call api
+  // function onSubmit(values: z.infer<typeof quantitySchema>) {
+  //   console.log(values);
+  //   // toast.success("Product is added to cart successfully")
+  //   // call api
+  //   onUpdate(values.quantity);
+  //   onDelete();
+  // }
+
+  const {setValue ,watch} = form;
+
+  const currentQuantity = Number(watch("quantity")) ;
+
+  const handleDecrease = () => {
+    const newQuantity = Math.max(currentQuantity - 1,0) ;
+    setValue("quantity", newQuantity.toString(), { shouldValidate: true });
+    onUpdate(newQuantity);
+  };
+
+  const handleIncrease = () => {
+    const newQuantity = Math.min(currentQuantity + 1, 9999);
+    setValue("quantity", newQuantity.toString(), { shouldValidate: true });
+    onUpdate(newQuantity);
   }
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        // onSubmit={form.handleSubmit()}
+
         className="flex w-full gap-4 justify-between"
       >
         <div className="flex items-center">
@@ -48,6 +75,8 @@ export default function EditTable() {
             size="icon"
             variant="outline"
             className="size-8 shrink-0 rounded-r-none"
+            onClick={handleDecrease}
+            disabled={currentQuantity === 0}
           >
             <Icons.minus className="size-3" aria-hidden="true" />
             <span className="sr-only">Remove one items</span>
@@ -77,6 +106,8 @@ export default function EditTable() {
             size="icon"
             variant="outline"
             className="size-8 shrink-0 rounded-l-none"
+            onClick={handleIncrease}
+            disabled={currentQuantity >  9999}
           >
             <Icons.plus className="size-3" aria-hidden="true" />
             <span className="sr-only">Add one items</span>
@@ -89,6 +120,7 @@ export default function EditTable() {
             variant={'outline'}
             size="icon"
             className="size-8"
+            onClick={onDelete}
           >
             <Icons.trash className="size-3" aria-hidden="true" />
             <span className='sr-only'>Delete</span>
