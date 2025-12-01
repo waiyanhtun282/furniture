@@ -1,5 +1,3 @@
-import { Products } from "@/types";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,13 +10,31 @@ import { Link } from "react-router";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Icons } from "../Icons";
 import { FormatPrice,cn } from "@/lib/utils";
+import { Product } from "@/types";
+import { useCartStore } from "@/store/cartStore";
+import { Button } from "@/components/ui/button";
+
 
 interface ProuctsProps extends React.HTMLAttributes<HTMLDivElement>{
-  product: Products;
+  product: Product;
 }
 const imageUrl = import.meta.env.VITE_IMAGE_URL;
 
 function ProductsCard({ product ,className}: ProuctsProps) {
+  const { carts ,addItem} =useCartStore();
+
+  const cartItem =carts.find((item) => item.id === product.id);
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0]?.path || "",
+      quantity: 1,
+    })
+  }
+
   return (
     <Card className={cn("size-full overflow-hidden rounded-lg",className)}>
       <Link to={`/products/${product.id}`} aria-label={product.name}>
@@ -47,7 +63,7 @@ function ProductsCard({ product ,className}: ProuctsProps) {
       </Link>
 
       <CardFooter className="p-4 pt-1">
-        {product.status === "sold" ? (
+        {product.status === "DEACTIVE" ? (
           <Button
             size="sm"
             disabled={true}
@@ -60,8 +76,10 @@ function ProductsCard({ product ,className}: ProuctsProps) {
           <Button
             size={"sm"}
             className="h-8 w-full rounded-sm bg-[#3b5d50] font-bold text-white"
+            onClick={handleAddToCart} disabled={!!cartItem}
           >
-            <Icons.plus className="mr-2" /> Add To Cart
+           {!cartItem && <Icons.plus className="mr-2" /> } 
+           {!cartItem ? "Add To Cart" : " Added Cart"}
           </Button>
         )}
       </CardFooter>
