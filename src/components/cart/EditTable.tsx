@@ -93,7 +93,7 @@ export default function EditTable({  quantity,onUpdate, onDelete }: EditTablePro
                     inputMode="numeric"
                  min={0}           
                           {...field}
-                    className="h-8 w-16 rounded-none broder-x-0"
+                    className="h-8 w-16 rounded-none broder-x-0 text-center  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none]"
                   />
                 </FormControl>
                 <FormMessage />

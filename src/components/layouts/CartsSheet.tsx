@@ -45,19 +45,19 @@ export default function CartsSheet() {
           <Icons.cart className="size-4" aria-hidden="true" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full px-3 md:max-w-lg">
+      <SheetContent className="w-full px-3 md:max-w-lg ">
         <SheetHeader className="">
           <SheetTitle className=""> {itemCount > 0 ? ` Cart - ${itemCount}` : " Empty Cart"}</SheetTitle>
         </SheetHeader>
         <Separator className="my-2" />
         {carts.length > 0 ? (
-          <ScrollArea className="my-4 h-[90vh] pb-8">
+          <ScrollArea className="my-4 h-[90vh] pb-8 ">
             <div className="flex-1">
               {carts.map((cart) => (
                 <CartItem cart={cart} key={cart.id} />
               ))}
             </div>
-            <div className="space-y-1.5 text-sm">
+            <div className="space-y-1.5 text-sm ">
               <Separator className="my-2" />
               <div className="flex justify-between">
                 <span>Shipping</span>
