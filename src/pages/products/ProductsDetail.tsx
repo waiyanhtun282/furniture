@@ -27,6 +27,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { Image, Product } from "@/types";
+import { useCartStore } from "@/store/cartStore";
 
 const imageUrl = import.meta.env.VITE_IMAGE_URL;
 
@@ -41,7 +42,20 @@ function ProductsDetail() {
 
   const  { data : productsDetail } =useSuspenseQuery(oneProductQuery(productId));
 
+
   const navigate = useNavigate();
+
+  const {addItem } =useCartStore();
+
+  const handleCart = (quantity : number) => {
+addItem({
+  id: productsDetail.product.id,
+  name: productsDetail.product.name,
+  price: productsDetail.product.price,
+  image: productsDetail.product.images[0]?.path || "",
+  quantity,
+})
+  }
 
   
   const plugin = React.useRef(
@@ -95,7 +109,7 @@ function ProductsDetail() {
               isFavourite ={productsDetail.product.users.length === 1 }
             />
           </div>
-          <AddToCardForm canBuy={productsDetail.product.status === "ACTIVE"} />
+          <AddToCardForm canBuy={productsDetail.product.status === "ACTIVE"} onHandleCart={handleCart} idInCart={productsDetail.product.id} />
           <Separator className="my-5" />
           <Accordion
             type="single"
