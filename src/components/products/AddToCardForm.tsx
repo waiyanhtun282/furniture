@@ -79,7 +79,7 @@ export default function AddToCardForm({canBuy, onHandleCart ,idInCart}:showBuyNo
             type="button"
             size="icon"
             variant="outline"
-            className="size-8 shrink-0 rounded-r-none"
+            className="[&::-webkit-inner-spin-button]:appearance-none] size-8 shrink-0 [appearance:textfield] rounded-r-none text-center [&::-webkit-outer-spin-button]:appearance-none"
             onClick={handleDecrease}
             disabled={currentQuantity <= 1}
           >
@@ -90,22 +90,21 @@ export default function AddToCardForm({canBuy, onHandleCart ,idInCart}:showBuyNo
             control={form.control}
             name="quantity"
             render={({ field }) => (
-              <FormItem className=" space-y-0">
+              <FormItem className="space-y-0">
                 <FormLabel className="sr-only">quantity</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     inputMode="numeric"
-                 min={1}         
-                 max={9999}  
-                          {...field}
-                    className="h-8 w-16 rounded-none broder-x-0"
+                    min={1}
+                    max={9999}
+                    {...field}
+                    className="broder-x-0 [&::-webkit-inner-spin-button]:appearance-none] h-8 w-16 [appearance:textfield] rounded-none text-center [&::-webkit-outer-spin-button]:appearance-none"
                     onClick={handleIncrease}
                     disabled={currentQuantity >= 9999}
                   />
                 </FormControl>
                 <FormMessage />
-                
               </FormItem>
             )}
           />
@@ -119,21 +118,24 @@ export default function AddToCardForm({canBuy, onHandleCart ,idInCart}:showBuyNo
             <span className="sr-only">Add one items</span>
           </Button>
         </div>
-        <div className="space-x-2.5 flex">
+        <div className="flex space-x-2.5">
           <Button
             type="button"
             aria-label="Buy Now"
             size="sm"
-            className={cn("w-full bg-[#3b5d50] text-white font-bold", !canBuy && "bg-slate-400 text-black")}
+            className={cn(
+              "w-full bg-[#3b5d50] font-bold text-white",
+              !canBuy && "bg-slate-400 text-black",
+            )}
           >
             Buy Now
           </Button>
-          <Button 
-          type="submit" size="sm" aria-label="Add To Cart"
-          variant={canBuy ? 'outline' :"default"}
-          
-          className="font-semibold w-full" 
-          
+          <Button
+            type="submit"
+            size="sm"
+            aria-label="Add To Cart"
+            variant={canBuy ? "outline" : "default"}
+            className="w-full font-semibold"
           >
             {cartItem ? "Update Cart" : "Add To Cart"}
           </Button>
