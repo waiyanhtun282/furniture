@@ -66,7 +66,7 @@ export default function EditTable({  quantity,onUpdate, onDelete }: EditTablePro
       <form
         // onSubmit={form.handleSubmit()}
 
-        className="flex w-full gap-4 justify-between"
+        className="flex w-full  justify-between"
       >
         <div className="flex items-center">
           <Button

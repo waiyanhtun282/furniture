@@ -51,37 +51,41 @@ export default function CartsSheet() {
         </SheetHeader>
         <Separator className="my-2" />
         {carts.length > 0 ? (
-          <ScrollArea className="my-4 h-[90vh] pb-8 ">
-            <div className="flex-1">
-              {carts.map((cart) => (
-                <CartItem cart={cart} key={cart.id} />
-              ))}
-            </div>
-            <div className="space-y-1.5 text-sm ">
-              <Separator className="my-2" />
-              <div className="flex justify-between">
-                <span>Shipping</span>
-                <span>Fee</span>
+           <>
+            <ScrollArea className="my-4 h-[68vh] pb-8">
+              <div className="flex-1">
+                {carts.map((cart) => (
+                  <CartItem cart={cart} key={cart.id} />
+                ))}
               </div>
-              <div className="flex justify-between">
-                <span>Taxes</span>
-                <span>Ccalculated to Checekout</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Total</span>
-                <span>{FormatPrice(amountTotal.toFixed(2))}</span>
+            </ScrollArea>
+            <div className="space-y-4">
+              <Separator />
+              <div className="space-y-1.5 text-sm">
+                <div className="flex justify-between">
+                  <span>Shipping</span>
+                  <span>Free</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Taxes</span>
+                  <span>Calculated at checkout</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Total</span>
+                  <span>{FormatPrice(amountTotal.toFixed(2))}</span>
+                </div>
               </div>
               <SheetFooter>
                 <SheetClose asChild>
                   <Button type="submit" asChild className="w-full">
-                    <Link to="/checkout" aria-label="Checkout">
-                      Checkout to Checkout
+                    <Link to="/checkout" aria-label="Check out">
+                      Continue to checkout
                     </Link>
                   </Button>
                 </SheetClose>
               </SheetFooter>
             </div>
-          </ScrollArea>
+          </>
         ) : (
           <div className="flex h-full flex-col items-center justify-center space-y-1">
             <Icons.cart className="text-muted-foreground mb-4 size-16" />

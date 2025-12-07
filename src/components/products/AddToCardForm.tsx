@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { Icons } from "@/components/Icons";
 import { cn } from "@/lib/utils";
 import { useCartStore } from "@/store/cartStore";
+import { cartItems } from '@/data/carts';
 
 
 const quantitySchema = z.object({
@@ -44,7 +45,13 @@ export default function AddToCardForm({canBuy, onHandleCart ,idInCart}:showBuyNo
     // console.log(values);
     // call api
     onHandleCart(Number(values.quantity));
-    toast.success("Product is added to cart successfully")
+    toast.success(
+      cartItems ? 
+      "Product is updated in cart successfully"
+      :
+      "Product is added to cart successfully",
+      
+    );
 
   }
 
@@ -77,21 +84,21 @@ export default function AddToCardForm({canBuy, onHandleCart ,idInCart}:showBuyNo
         <div className="flex items-center">
           <Button
             type="button"
-            size="icon"
             variant="outline"
-            className="[&::-webkit-inner-spin-button]:appearance-none] size-8 shrink-0 [appearance:textfield] rounded-r-none text-center [&::-webkit-outer-spin-button]:appearance-none"
+            size="icon"
+            className="size-8 shrink-0 rounded-r-none"
             onClick={handleDecrease}
             disabled={currentQuantity <= 1}
           >
             <Icons.minus className="size-3" aria-hidden="true" />
-            <span className="sr-only">Remove one items</span>
+            <span className="sr-only">Remove one item</span>
           </Button>
           <FormField
             control={form.control}
             name="quantity"
             render={({ field }) => (
               <FormItem className="space-y-0">
-                <FormLabel className="sr-only">quantity</FormLabel>
+                <FormLabel className="sr-only">Quantity</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -99,9 +106,7 @@ export default function AddToCardForm({canBuy, onHandleCart ,idInCart}:showBuyNo
                     min={1}
                     max={9999}
                     {...field}
-                    className="broder-x-0 [&::-webkit-inner-spin-button]:appearance-none] h-8 w-16 [appearance:textfield] rounded-none text-center [&::-webkit-outer-spin-button]:appearance-none"
-                    onClick={handleIncrease}
-                    disabled={currentQuantity >= 9999}
+                    className="h-8 w-16 [appearance:textfield] rounded-none border-x-0 text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   />
                 </FormControl>
                 <FormMessage />
@@ -110,12 +115,14 @@ export default function AddToCardForm({canBuy, onHandleCart ,idInCart}:showBuyNo
           />
           <Button
             type="button"
-            size="icon"
             variant="outline"
+            size="icon"
             className="size-8 shrink-0 rounded-l-none"
+            onClick={handleIncrease}
+            disabled={currentQuantity >= 9999}
           >
             <Icons.plus className="size-3" aria-hidden="true" />
-            <span className="sr-only">Add one items</span>
+            <span className="sr-only">Add one item</span>
           </Button>
         </div>
         <div className="flex space-x-2.5">
