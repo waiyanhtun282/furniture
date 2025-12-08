@@ -173,4 +173,27 @@ export const router = createBrowserRouter([
     action: logoutAction,
     loader: () => redirect("/"),
   },
+   {
+    path: "/reset",
+    Component: AuthRootLayout,
+    children: [
+      {
+        index: true,
+        Component: SingUpPage,
+        loader: loginLoader,
+        action: registerAction,
+      },
+      // {
+      //   path: "otp",
+      //   Component: OtpPage,
+      //   loader: otpLoader,
+      //   action: otpAction,
+      // },
+      // {
+      //   path: "confirm-password",
+      //   Component: ConfirmPasswordPage,
+      //   loader: confirmPasswordLoader,
+      //   action: confirmPasswordAction,
+      // },
+    ]},
 ]);
