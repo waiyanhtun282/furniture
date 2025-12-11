@@ -17,21 +17,29 @@ import {
   confirmPasswordLoader,
   homeLoader,
   loginLoader,
+  newPasswordLoader,
   otpLoader,
   postLoader,
   productInfiniteLoader,
   productLoader,
+  verifyLoader,
 } from "@/router/loader";
 import {
   confirmPasswordAction,
   // favouriteAction,
   loginAction,
   logoutAction,
+  newPasswordAction,
   otpAction,
   registerAction,
+  resetAction,
+  verifyAction,
 } from "@/router/action";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
+import ResetPasswordPage from "@/pages/auth/ResetPassword";
+import VerifyOtpPage from "@/pages/auth/Verify";
+import NewPasswordPage from "@/pages/auth/NewPassword";
 // import SuspenseFallback from "./components/SuspenseFallback";
 
 export const router = createBrowserRouter([
@@ -74,12 +82,11 @@ export const router = createBrowserRouter([
             path: ":productId",
             lazy: async () => {
               const module = await import("@/pages/products/ProductsDetail");
-              return { 
-                Component: module.default, 
+              return {
+                Component: module.default,
                 loader: productLoader,
                 // action: favouriteAction
-
-               };
+              };
             },
           },
         ],
@@ -173,27 +180,27 @@ export const router = createBrowserRouter([
     action: logoutAction,
     loader: () => redirect("/"),
   },
-   {
+  {
     path: "/reset",
     Component: AuthRootLayout,
     children: [
       {
         index: true,
-        Component: SingUpPage,
-        loader: loginLoader,
-        action: registerAction,
+        Component: ResetPasswordPage,
+        action: resetAction,
       },
-      // {
-      //   path: "otp",
-      //   Component: OtpPage,
-      //   loader: otpLoader,
-      //   action: otpAction,
-      // },
-      // {
-      //   path: "confirm-password",
-      //   Component: ConfirmPasswordPage,
-      //   loader: confirmPasswordLoader,
-      //   action: confirmPasswordAction,
-      // },
-    ]},
+      {
+        path: "verify",
+        Component: VerifyOtpPage,
+        loader: verifyLoader,
+        action: verifyAction,
+      },
+      {
+        path: "new-password",
+        Component: NewPasswordPage,
+        loader: newPasswordLoader,
+        action: newPasswordAction,
+      },
+    ],
+  },
 ]);

@@ -22,7 +22,6 @@ import {
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Icons } from "../Icons";
 import { cn } from "@/lib/utils";
-import { RegisterForm } from '@/components/auth/RegisterForm';
 
 const FormSchema = z.object({
   otp: z.string().min(6, {

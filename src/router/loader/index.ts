@@ -91,7 +91,7 @@ export const productLoader = async ({ params }: LoaderFunctionArgs) => {
   await queryClient.ensureQueryData(productsQuery("?limit=4"));
   await queryClient.ensureQueryData(oneProductQuery(Number(params.productId)));
   // console.log(params.productId)
-  return { productId : params.productId };
+  return { productId: params.productId };
 };
 
 // export const productLoader = async ({ params }: LoaderFunctionArgs) => {
@@ -106,3 +106,21 @@ export const productLoader = async ({ params }: LoaderFunctionArgs) => {
 
 //   return { productId: id };
 // };
+
+export const verifyLoader = async () => {
+  const authSore = useAuthStore.getState();
+
+  if (authSore.status !== Status.verify) {
+    return redirect("/reset");
+  }
+  return null;
+};
+
+export const newPasswordLoader = async () => {
+  const authSore = useAuthStore.getState();
+
+  if (authSore.status !== Status.reset) {
+    return redirect("/reset");
+  }
+  return null;
+};
