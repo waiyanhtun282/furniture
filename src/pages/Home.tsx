@@ -50,6 +50,9 @@ function HomePage  () {
 //        </div>
 //      );
 //    }
+
+ 
+
 const { data: productsData } = useSuspenseQuery(productsQuery("?limit=8"));
 
 const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
