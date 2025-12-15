@@ -53,9 +53,11 @@ function HomePage  () {
 
  
 
+
 const { data: productsData } = useSuspenseQuery(productsQuery("?limit=8"));
 
 const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
+
 // const postsData = data;
   const Title = ({
     title,
@@ -66,7 +68,7 @@ const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
     href: string;
     sideText: string;
   }) => (
-    <div className=" mb-10 mt-28 flex flex-col md:flex-row md:justify-between md:px-0 px-4">
+    <div className=" mb-10 mt-28 flex flex-col md:flex-row md:justify-between md:px-0 px-4"  >
       <h2 className=" font-bold mb-4 text-2xl md:mb-0">{title}</h2>
       <Link  className=" font-semibold underline text-muted-foreground" to={href}>{sideText}</Link>
     </div>
@@ -110,6 +112,7 @@ const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
       <Title
         title="Featured Prodcuts"
         href="/products"
+        
         sideText="View All Products"
       />
       <div className="grid gird-cols-1 px-4 md:px-0 md:grid-cols-2  lg:grid-cols-4 gap-6">
