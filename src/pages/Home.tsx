@@ -111,7 +111,7 @@ const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
       </div>
       <Title
         title="Featured Prodcuts"
-        href="/products"
+        href="/products?categories=1"
         
         sideText="View All Products"
       />

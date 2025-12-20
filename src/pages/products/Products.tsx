@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 function Products() {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const rawCategory = searchParams.get("categories");
-    const rawType = searchParams.get("types");
+    const rawCategory = searchParams.get("categories") || "";
+    const rawType = searchParams.get("types") || "";
 
     // Decode & parse search params
     const selectedCategory = rawCategory
