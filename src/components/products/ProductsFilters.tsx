@@ -30,6 +30,7 @@ interface ProductsFilterProps {
   selectedCategory: string[];
   selectedType: string[];
   onFilterChange: (categories: string[], types: string[]) => void;
+  onClearFilters: () => void;
 }
 
 const FormSchema = z.object({
@@ -50,6 +51,7 @@ export default function PrductsFilters({
   selectedCategory,
   selectedType,
   onFilterChange,
+  onClearFilters,
 }: ProductsFilterProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -164,7 +166,12 @@ export default function PrductsFilters({
             </FormItem>
           )}
         />
-        <Button type="submit" variant="outline">
+        <Button
+          type="submit"
+          variant="secondary"
+          className="cursor-pointer duration-100 active:scale-95 hover:shadow-lg"
+          onClick={() => onClearFilters()}
+        >
           Filter
         </Button>
       </form>

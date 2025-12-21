@@ -9,6 +9,7 @@ import BlogsCard from "@/components/blogs/BlogsCard";
 import ProductsCard from "@/components/products/ProductsCard";
 import { Product } from "@/types";
 import { postsQuery, productsQuery } from "@/api/query";
+import useFilterProductsStore from "@/store/filterProductsStore";
 
 
 function HomePage  () {
@@ -57,6 +58,8 @@ function HomePage  () {
 const { data: productsData } = useSuspenseQuery(productsQuery("?limit=8"));
 
 const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
+
+const { getFilterProducts } = useFilterProductsStore();
 
 // const postsData = data;
   const Title = ({
@@ -111,7 +114,7 @@ const {data : postsData} = useSuspenseQuery(postsQuery("?limit=3"));
       </div>
       <Title
         title="Featured Prodcuts"
-        href="/products?categories=1"
+        href={getFilterProducts()}
         
         sideText="View All Products"
       />
