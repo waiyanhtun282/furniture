@@ -40,6 +40,7 @@ import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
 import ResetPasswordPage from "@/pages/auth/ResetPassword";
 import VerifyOtpPage from "@/pages/auth/Verify";
 import NewPasswordPage from "@/pages/auth/NewPassword";
+import ChangePassword from "./pages/auth/ChangePassword";
 // import SuspenseFallback from "./components/SuspenseFallback";
 
 export const router = createBrowserRouter([
@@ -203,4 +204,9 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/change-password",
+    Component: ChangePassword,
+
+  }
 ]);

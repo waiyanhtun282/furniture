@@ -15,39 +15,38 @@ const initialState: filterProductsState = {
 
 type filterProductsActions = {
   setFilterCategoriesTypesProducts: (categories: string, types: string) => void;
+   getFilterProducts: () => string;
   clearFilterProducts: () => void;
 };
 
 
  const useFilterProductsStore = create<
-  filterProductsState & filterProductsActions
->()(
-    persist(
-        immer((set,get) => ({
-            ...initialState,
+   filterProductsState & filterProductsActions
+ >()(
+   persist(
+     immer((set, get) => ({
+       ...initialState,
 
-            setFilterCategoriesTypesProducts: (categories :string ,types :string) =>
-                set((state) => {
-                    state.categories = categories?.length ? categories : "";
-                    state.types = types?.length ? types : "";
-        }),
-            
+       setFilterCategoriesTypesProducts: (categories: string, types: string) =>
+         set((state) => {
+           state.categories = categories?.length ? categories : "";
+           state.types = types?.length ? types : "";
+         }),
 
-        getFilterProducts: () => {
-            const { categories, types } = get();
-            const getCategories = categories ? `&categories=${categories}` : "";
-            const getTypes = types ? `&types=${types}` : "";
-            return `/products?${getCategories}${getTypes}`;
-        },
-            clearFilterProducts: () => set(initialState),
-        }),
-    ),
+       getFilterProducts: ( ) => {
+         const { categories, types } = get();
+         const getCategories = categories ? `&categories=${categories}` : "";
+         const getTypes = types ? `&types=${types}` : "";
+         return `/products?${getCategories}${getTypes}`;
+       },
+       clearFilterProducts: () => set(initialState),
+     })),
 
-    {
-        name: 'filter-products-storage',
-        storage: createJSONStorage(() => sessionStorage),
-    }
-)
-);
+     {
+       name: "filter-products-storage",
+       storage: createJSONStorage(() => sessionStorage),
+     },
+   ),
+ );
 
 export default  useFilterProductsStore;

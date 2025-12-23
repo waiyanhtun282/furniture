@@ -1,12 +1,12 @@
 export interface NavItem {
     title:string;
-    href:string;
+    href?:string;
     description?:string;
 };
 
 export interface NavItemWithChildren extends NavItem {
-    card?:NavItemWithChildren[];
-    menu?:NavItemWithChildren[];
+    card?:NavItem[];
+    menu?:NavItem[];
 }
 
 export type MainNavItem =NavItemWithChildren;
@@ -52,7 +52,7 @@ export type Category={
 }
 
 export type User = {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   username: string;

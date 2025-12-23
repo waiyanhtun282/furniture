@@ -69,7 +69,7 @@ const { getFilterProducts } = useFilterProductsStore();
   }: {
     title: string;
     href: string;
-    sideText: string;
+    sideText?: string;
   }) => (
     <div className=" mb-10 mt-28 flex flex-col md:flex-row md:justify-between md:px-0 px-4"  >
       <h2 className=" font-bold mb-4 text-2xl md:mb-0">{title}</h2>

@@ -57,15 +57,23 @@ function AutoDropDown({user}:UserProps) {
             <Link to="#">
               <Icons.dashboard className="mr-2 size-4" aria-hidden="true" />
               Dashboard
-            <DropdownMenuShortcut>⇧⌘</DropdownMenuShortcut>
+              <DropdownMenuShortcut>⇧⌘</DropdownMenuShortcut>
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Icons.securitypasword className="mr-2 size-4" aria-hidden="true" />
+            <Form action="/change-password">
+              <button type="submit">Change password</button>
+            </Form>
+
+            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
 
           <DropdownMenuItem asChild>
             <Link to="#">
               <Icons.gear className="mr-2 size-4" aria-hidden="true" />
               Setting
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -76,12 +84,11 @@ function AutoDropDown({user}:UserProps) {
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </Link> */}
-          <Form action="/logout" method="POST">   
+          <Form action="/logout" method="POST">
             <button type="submit" className="w-full">
               logout
-              </button>
-         </Form>
-
+            </button>
+          </Form>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
